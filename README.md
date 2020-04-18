@@ -1,24 +1,26 @@
-# rmdb
+# Rmdb
 
-## Project setup
-```
-npm install
-```
+## Todo
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- Add Movies
+  - [ ] Allow pages
+- Library
 
-### Compiles and minifies for production
-```
-npm run build
-```
+  - [x] Enable library cache
+  - [ ] Create movie form
+  - [ ] Search movie
+  - [ ] Open the movie in the media player
+  - To Improve:
+    - [ ] Check if I can improve this
+    - [ ] Allow multiple movies in same row when poster is getting shrinked
 
-### Lints and fixes files
-```
-npm run lint
-```
+- Settings
+  - [ ] Start
+- Info
+  - [ ] Start
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+---
+
+## What is this?
+
+Rmdb is a free open-source app to store all your movies and have a track about them
