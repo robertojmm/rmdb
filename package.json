@@ -14,9 +14,11 @@
   "main": "background.js",
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "aws-sdk": "^2.662.0",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "electron-store": "^5.1.1",
+    "open": "^7.0.3",
     "quasar": "^1.0.0",
     "sqlite": "^4.0.7",
     "sqlite3": "^4.1.1",
