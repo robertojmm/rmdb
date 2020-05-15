@@ -21,7 +21,12 @@
             icon="delete"
             @click="removeMovie"
           />
-          <q-btn color="warning" label="Open location" icon="folder" />
+          <q-btn
+            color="warning"
+            label="Open location"
+            icon="folder"
+            @click="openMovieFolder"
+          />
         </q-toolbar>
       </q-header>
 
@@ -76,6 +81,16 @@ export default {
     playMovie() {
       if (this.movie.filePath) {
         open(this.movie.filePath);
+      } else {
+        console.log("This Movie doesn't have any file associated");
+      }
+    },
+    openMovieFolder() {
+      if (this.movie.filePath) {
+        const filePathArray = this.movie.filePath.split(/[\\/]+/);
+        filePathArray.pop();
+        const folderPath = filePathArray.join("/");
+        open(folderPath);
       } else {
         console.log("This Movie doesn't have any file associated");
       }
