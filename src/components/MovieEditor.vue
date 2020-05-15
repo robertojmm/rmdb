@@ -13,7 +13,7 @@
             color="secondary"
             label="Edit"
             icon="edit"
-            @click="editBlocked = false"
+            @click="editBlocked = !editBlocked"
           />
           <q-btn
             color="negative"
