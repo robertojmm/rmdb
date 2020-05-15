@@ -5,7 +5,7 @@ interface Movie {
   posterUrl: string;
   releaseDate: string; // Change to object?
   filePath?: string;
-  viewed: number;
+  viewed: boolean;
 }
 
 export default Movie;

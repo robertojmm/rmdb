@@ -50,7 +50,7 @@ class MovieDataBase {
         plot: row.plot,
         posterUrl: posterBase64,
         filePath: row.file_path,
-        viewed: row.viewed,
+        viewed: !!row.viewed,
         releaseDate: row.release_date,
       };
 
