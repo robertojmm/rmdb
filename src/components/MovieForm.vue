@@ -41,6 +41,7 @@
           color="secondary"
           v-model="viewed"
           @input="setViewedState"
+          :disable="readonly"
         />
       </div>
       <div class="col-3">
