@@ -25,7 +25,8 @@
     - [ ] Refresh movie list
   - [x] Play Movie
     - [ ] Show Dialog if movie doesn't have a file associated
-  - [ ] Finish 'Open Location' button. Should open the folder and seleect the movie
+  - [x] Finish 'Open Location' button. Should open the movie folder
+    - [ ] Show Dialog if movie doesn't have a file associated
 * [x] Search movie
 * [x] Open the movie in the media player
 * To Improve:
@@ -45,3 +46,16 @@
 ## What is this?
 
 Rmdb is a free open-source app to store all your movies and have a track about them
+
+# Recomendaciones de Carlos:
+
+- [ ] Paquete RIP para hacer los posters de las películas (https://github.com/MarcusCemes/responsive-image-builder). Formato webp. Ajustar el tamaño de los posters en función de la pantalla del usuario
+
+<picture>
+  <source src="assets/image_xs.webp">
+ <source src="assets/image_xs.png">
+</picture>
+
+<source media="min XXX & max XX" src="assets/image_xs.webp">
+
+- [ ] Cambiar componentes en los html a minuscula
