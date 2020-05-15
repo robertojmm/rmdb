@@ -15,7 +15,6 @@
 * [x] Enable library cache
 * [ ] Center poster inside columns (some posters are smaller)
 * [x] Add 'viewed or not viewed' to movies and also to the editor (toggle)
-  - [ ] Should I move this option from the form to the editor?
 * [ ] Filter movies by 'viewed or not viewed'
 * [x] Create movie form
   - [x] Allow editing/saving changes
@@ -23,12 +22,12 @@
   - [x] Delete movie btn
     - [x] Close Editor
     - [ ] Refresh movie list
+    - [ ] Confirm popup
   - [x] Play Movie
     - [ ] Show Dialog if movie doesn't have a file associated
-  - [x] Finish 'Open Location' button. Should open the movie folder
+  - [x] Open Location
     - [ ] Show Dialog if movie doesn't have a file associated
 * [x] Search movie
-* [x] Open the movie in the media player
 * To Improve:
 
   - [ ] Check if I can improve library cache
@@ -36,10 +35,12 @@
   - [ ] Check why it's needed to reload the app in the first launch
   - [x] Change database script to Class
 
-* Settings
-  - [ ] Load actual settings when route open
-* Info
-  - [ ] Start
+* Think if this is really necessary:
+
+  - Settings
+    - [ ] Load actual settings when route open
+  - Info
+    - [ ] Start
 
 ---
 
