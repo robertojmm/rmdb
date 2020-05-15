@@ -38,6 +38,7 @@
         <q-toolbar>
           <q-space />
           <q-btn
+            :disable="editBlocked"
             color="primary"
             label="Save"
             icon="save"
