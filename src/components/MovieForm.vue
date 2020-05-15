@@ -72,7 +72,7 @@ export default {
       this.file = new File([], fileName);
     }
 
-    this.viewed = this.movie.viewed === true ? "Viewed" : "Not viewed";
+    this.viewed = this.movie.viewed ? "Viewed" : "Not viewed";
   },
   methods: {
     setViewedState(state) {
