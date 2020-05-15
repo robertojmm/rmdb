@@ -11,8 +11,8 @@ export default {
   name: "Movie",
   props: {
     movie: Movie,
-    size: String,
-  },
+    size: String
+  }
 };
 </script>
 
