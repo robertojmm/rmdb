@@ -16,7 +16,7 @@
 * [ ] Center poster inside columns (some posters are smaller)
 * [x] Add 'viewed or not viewed' to movies and also to the editor (toggle)
 * [ ] Filter movies by 'viewed or not viewed'
-* [x] Create movie form
+* [x] Create movie editor
   - [x] Allow editing/saving changes
     - [ ] Update movie component in library when it's updated
   - [x] Delete movie btn
@@ -27,6 +27,7 @@
     - [ ] Show Dialog if movie doesn't have a file associated
   - [x] Open Location
     - [ ] Show Dialog if movie doesn't have a file associated
+  - [ ] Option to rate movie
 * [x] Search movie
 * To Improve:
 
