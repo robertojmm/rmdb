@@ -1,5 +1,5 @@
 <template>
-  <div :class="this.size" style="text-align: center">
+  <div :class="this.size">
     <q-img :src="movie.posterUrl" />
   </div>
 </template>
@@ -11,8 +11,8 @@ export default {
   name: "Movie",
   props: {
     movie: Movie,
-    size: String
-  }
+    size: String,
+  },
 };
 </script>
 
