@@ -25,7 +25,9 @@
     </div>
 
     <div class="row q-ma-md">
-      <MovieForm v-if="showForm" :movie="actualMovie"></MovieForm>
+      <div class="col-12">
+        <MovieForm v-if="showForm" :movie="actualMovie" />
+      </div>
       <div v-if="showForm" class="col-4">
         <q-btn
           ref="saveButton"

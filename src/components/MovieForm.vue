@@ -1,52 +1,61 @@
 /* eslint-disable vue/no-reserved-keys */ /* eslint-disable vue/no-reserved-keys
 */
 <template>
-  <div class="col-12">
-    <div class="row q-gutter-md">
-      <div class="col-8">
-        <q-input
-          outlined
-          v-model="movie.title"
-          label="Movie Title"
-          :readonly="readonly"
-        ></q-input>
-      </div>
-      <div class="col-3">
-        <q-input
-          outlined
-          v-model="movie.releaseDate"
-          label="Release Date"
-          :readonly="readonly"
-        ></q-input>
-      </div>
+  <div class="row q-ma-sm q-col-gutter-md">
+    <div class="col-8">
+      <div class="row q-col-gutter-md justify-center items-center">
+        <div class="col-8">
+          <q-input
+            outlined
+            v-model="movie.title"
+            label="Movie Title"
+            :readonly="readonly"
+          ></q-input>
+        </div>
+        <div class="col-4">
+          <q-input
+            outlined
+            v-model="movie.releaseDate"
+            label="Release Date"
+            :readonly="readonly"
+          ></q-input>
+        </div>
 
-      <div class="col-8" style="width=100%">
-        <q-input
-          v-model="movie.plot"
-          filled
-          type="textarea"
-          :readonly="readonly"
-        />
-        <q-file
-          label="File Location"
-          v-model="file"
-          filled
-          @input="(file) => (this.movie.filePath = file.path)"
-          :readonly="readonly"
-        />
-        <q-toggle
-          :false-value="'Not viewed'"
-          :label="`${viewed}`"
-          :true-value="'Viewed'"
-          color="secondary"
-          v-model="viewed"
-          @input="setViewedState"
-          :disable="readonly"
-        />
+        <div class="col-12">
+          <q-input
+            v-model="movie.plot"
+            rows="9"
+            filled
+            type="textarea"
+            :readonly="readonly"
+          />
+        </div>
+
+        <div class="col-8">
+          <q-file
+            label="File Location"
+            v-model="file"
+            filled
+            @input="(file) => (this.movie.filePath = file.path)"
+            :readonly="readonly"
+          />
+        </div>
+        <div class="col-4">
+          <q-toggle
+            :false-value="'Not viewed'"
+            :label="`${viewed}`"
+            :true-value="'Viewed'"
+            color="secondary"
+            v-model="viewed"
+            @input="setViewedState"
+            :disable="readonly"
+          />
+        </div>
       </div>
-      <div class="col-3">
-        <q-img class="rounded-borders" :src="movie.posterUrl" />
-      </div>
+    </div>
+
+    <div class="col-4">
+      <q-img class="rounded-borders" :src="movie.posterUrl" width="95%" />
     </div>
   </div>
 </template>
@@ -83,4 +92,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.s {
+  border: 1px solid red;
+}
+</style>

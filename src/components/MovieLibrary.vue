@@ -17,25 +17,30 @@
           :options="moviePosterSizes"
           style="width: 250px"
         />
-        <q-badge color="secondary">Total of movies: {{ movies.length }}</q-badge>
+        <q-badge color="secondary"
+          >Total of movies: {{ movies.length }}</q-badge
+        >
       </div>
       <div class="col-1">
         <q-btn color="secondary" icon="cached" @click="loadMovies" />
       </div>
     </div>
 
-    <div class="row q-ma-md q-col-gutter-md">
-      <MovieEditor
-        v-if="showEditor"
-        v-on:close="showEditor = false"
-        v-on:update="xd"
-        :movie="actualMovie"
-      />
+    <MovieEditor
+      v-if="showEditor"
+      v-on:close="showEditor = false"
+      v-on:update="xd"
+      :movie="actualMovie"
+    />
+
+    <div class="row q-ma-xs q-col-gutter-xs" style="border: blue 1px solid">
       <movie
         v-for="movie in movies"
         v-bind:key="movie.id"
         v-bind:movie="movie"
         :size="movieCaseWidth.value"
+        style="border: green 2px solid"
+        @mouseover="hover"
         @dblclick.native="openMovieForm(movie)"
       ></movie>
     </div>
@@ -61,8 +66,8 @@ export default {
       moviePosterSizes: [
         { label: "Small", value: "col-1" },
         { label: "Normal", value: "col-2" },
-        { label: "Big", value: "col-3" }
-      ]
+        { label: "Big", value: "col-3" },
+      ],
     };
   },
   created() {
@@ -80,9 +85,13 @@ export default {
       this.actualMovie = e;
       console.log(this.actualMovie);
     },
+    hover(event) {
+      const component = event.target;
+      console.log(component.className);
+    },
     loadMovies() {
       console.log("loading");
-      movieDatabase.loadAllMovies().then(movies => {
+      movieDatabase.loadAllMovies().then((movies) => {
         console.log(movies);
         this.movies = movies;
       });
@@ -93,7 +102,7 @@ export default {
         const title = e.target.value.trim();
         movieDatabase
           .searchMovie(title)
-          .then(movies => {
+          .then((movies) => {
             this.movies = movies;
           })
           .catch(console.error);
@@ -102,13 +111,13 @@ export default {
     openMovieForm(movie) {
       this.actualMovie = movie;
       this.showEditor = true;
-    }
+    },
   },
   components: {
     Movie,
     BackToTopArrow,
-    MovieEditor
-  }
+    MovieEditor,
+  },
 };
 </script>
 

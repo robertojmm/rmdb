@@ -2,7 +2,7 @@
   <q-dialog v-model="show" :persistent="true">
     <q-layout view="hHh lpR fFf" container class="layout bg-white">
       <q-header elevated class="bg-primary text-white">
-        <q-toolbar>
+        <q-toolbar class="toolbar">
           <q-btn
             color="green"
             label="Play"
@@ -27,11 +27,20 @@
             icon="folder"
             @click="openMovieFolder"
           />
+          <q-space /><q-btn
+            color="purple"
+            label="Close"
+            icon="close"
+            @click="closeEditor"
+            v-close-popup
+          />
         </q-toolbar>
       </q-header>
 
       <q-page-container>
-        <MovieForm :movie="updatedMovie" :readonly="editBlocked"></MovieForm>
+        <q-page class="no-overflow">
+          <MovieForm :movie="updatedMovie" :readonly="editBlocked" />
+        </q-page>
       </q-page-container>
 
       <q-footer elevated class="bg-grey-8 text-white">
@@ -43,13 +52,6 @@
             label="Save"
             icon="save"
             @click="updateMovie"
-          />
-          <q-btn
-            color="purple"
-            label="Close"
-            icon="close"
-            @click="closeEditor"
-            v-close-popup
           />
         </q-toolbar>
       </q-footer>
@@ -129,5 +131,13 @@ export default {
   max-width: 1000px;
   width: 1000px;
   height: 600px;
+}
+
+.toolbar > * {
+  margin-left: 0.5em;
+}
+
+.no-overflow {
+  overflow: hidden;
 }
 </style>
