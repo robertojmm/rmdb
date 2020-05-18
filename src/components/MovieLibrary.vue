@@ -33,14 +33,13 @@
       :movie="actualMovie"
     />
 
-    <div class="row q-ma-xs q-col-gutter-xs" style="border: blue 1px solid">
+    <div class="row q-ma-xs q-col-gutter-sm">
       <movie
+        class="movie"
         v-for="movie in movies"
         v-bind:key="movie.id"
         v-bind:movie="movie"
         :size="movieCaseWidth.value"
-        style="border: green 2px solid"
-        @mouseover="hover"
         @dblclick.native="openMovieForm(movie)"
       ></movie>
     </div>
@@ -121,4 +120,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.movie {
+  transition: transform 0.2s linear;
+  transform: scale(1);
+}
+
+.movie:hover {
+  transition: transform 0.2s linear;
+  transform: scale(0.9);
+}
+</style>
