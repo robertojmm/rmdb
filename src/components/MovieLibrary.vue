@@ -30,6 +30,7 @@
       v-if="showEditor"
       v-on:close="showEditor = false"
       v-on:update="refreshMovie"
+      v-on:remove="removeMovie"
       :movie="actualMovie"
     />
 
@@ -80,6 +81,10 @@ export default {
     refreshMovie(updatedMovie) {
       const index = this.findMovieIndex(updatedMovie.id);
       this.movies[index] = updatedMovie;
+    },
+    removeMovie(id) {
+      const index = this.findMovieIndex(id);
+      this.movies.splice(index, 1);
     },
     findMovieIndex(_id) {
       return this.movies.findIndex(({ id }) => id === _id);

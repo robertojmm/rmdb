@@ -99,7 +99,10 @@ export default {
     removeMovie() {
       movieDatabase
         .deleteMovie(this.movie)
-        .then(this.closeEditor)
+        .then(() => {
+          this.$emit("remove", this.movie.id);
+          this.closeEditor();
+        })
         .catch(console.log);
     },
     updateMovie() {
