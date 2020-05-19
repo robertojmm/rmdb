@@ -29,7 +29,7 @@
     <MovieEditor
       v-if="showEditor"
       v-on:close="showEditor = false"
-      v-on:update="xd"
+      v-on:update="refreshMovie"
       :movie="actualMovie"
     />
 
@@ -77,16 +77,12 @@ export default {
     console.log("mounted");
   },
   methods: {
-    xd(e) {
-      console.log("-------");
-      console.log(e);
-      console.log(this.actualMovie);
-      this.actualMovie = e;
-      console.log(this.actualMovie);
+    refreshMovie(updatedMovie) {
+      const index = this.findMovieIndex(updatedMovie.id);
+      this.movies[index] = updatedMovie;
     },
-    hover(event) {
-      const component = event.target;
-      console.log(component.className);
+    findMovieIndex(_id) {
+      return this.movies.findIndex(({ id }) => id === _id);
     },
     loadMovies() {
       console.log("loading");
@@ -95,10 +91,10 @@ export default {
         this.movies = movies;
       });
     },
-    searchMovie(e) {
+    searchMovie(event) {
       clearTimeout(this.timeOut);
       this.timeOut = setTimeout(() => {
-        const title = e.target.value.trim();
+        const title = event.target.value.trim();
         movieDatabase
           .searchMovie(title)
           .then((movies) => {
@@ -110,6 +106,8 @@ export default {
     openMovieForm(movie) {
       this.actualMovie = movie;
       this.showEditor = true;
+
+      this.findMovieIndex(movie.id);
     },
   },
   components: {
