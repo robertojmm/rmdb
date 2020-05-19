@@ -92,8 +92,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.s {
-  border: 1px solid red;
-}
-</style>
+<style scoped></style>
