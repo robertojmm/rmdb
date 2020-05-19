@@ -85,7 +85,6 @@ export default {
   },
   methods: {
     setViewedState(state) {
-      console.log(state);
       this.movie.viewed = state === "Viewed";
     },
   },
