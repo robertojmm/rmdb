@@ -8,6 +8,7 @@
             label="Play"
             icon="play_arrow"
             @click="playMovie"
+            :disable="!hasFileAssociated"
           />
           <q-btn
             color="secondary"
@@ -26,8 +27,10 @@
             label="Open location"
             icon="folder"
             @click="openMovieFolder"
+            :disable="!hasFileAssociated"
           />
-          <q-space /><q-btn
+          <q-space />
+          <q-btn
             color="purple"
             label="Close"
             icon="close"
@@ -72,31 +75,26 @@ export default {
       show: true,
       updatedMovie: {},
       editBlocked: true,
+      hasFileAssociated: false,
     };
   },
   mounted() {
     this.updatedMovie = { ...this.movie };
+
+    this.hasFileAssociated = this.updatedMovie.filePath !== "";
   },
   methods: {
     closeEditor() {
       this.$emit("close");
     },
     playMovie() {
-      if (this.movie.filePath) {
-        open(this.movie.filePath);
-      } else {
-        console.log("This Movie doesn't have any file associated");
-      }
+      open(this.updatedMovie.filePath);
     },
     openMovieFolder() {
-      if (this.movie.filePath) {
-        const filePathArray = this.movie.filePath.split(/[\\/]+/);
-        filePathArray.pop();
-        const folderPath = filePathArray.join("/");
-        open(folderPath);
-      } else {
-        console.log("This Movie doesn't have any file associated");
-      }
+      const filePathArray = this.updatedMovie.filePath.split(/[\\/]+/);
+      filePathArray.pop();
+      const folderPath = filePathArray.join("/");
+      open(folderPath);
     },
     removeMovie() {
       movieDatabase
@@ -110,11 +108,12 @@ export default {
         .then(() => {
           //Finish this
           this.$emit("update", this.updatedMovie);
+          this.hasFileAssociated = this.updatedMovie.filePath !== "";
         })
         .catch(console.log);
 
       this.editBlocked = true;
-      //TODO show dialogs
+      //TODO show dialogs saying that the movie is updated
     },
   },
   props: {
