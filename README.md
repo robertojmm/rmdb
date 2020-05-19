@@ -21,12 +21,12 @@
     - [ ] Update movie component in library when it's updated
   - [x] Delete movie btn
     - [x] Close Editor
-    - [ ] Refresh movie list
-    - [ ] Confirm popup
+    - [ ] Refresh movie list (try to just delete Movie Component)
+    - [ ] Confirm popup !!!!
   - [x] Play Movie
-    - [ ] Show Dialog if movie doesn't have a file associated
+    - [ ] Throw Exception if file not found
   - [x] Open Location
-    - [ ] Show Dialog if movie doesn't have a file associated
+    - [ ] Throw Exception if folder not found
   - [ ] Option to rate movie
 * [x] Search movie
 * To Improve:
