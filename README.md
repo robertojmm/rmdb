@@ -18,10 +18,10 @@
 * [ ] Filter movies by 'viewed or not viewed'
 * [x] Create movie editor
   - [x] Allow editing/saving changes
-    - [ ] Update movie component in library when it's updated
+    - [x] Update movie component in library when it's updated
   - [x] Delete movie btn
     - [x] Close Editor
-    - [ ] Refresh movie list (try to just delete Movie Component)
+    - [x] Refresh movie list (try to just delete Movie Component)
     - [ ] Confirm popup !!!!
   - [x] Play Movie
     - [ ] Throw Exception if file not found
