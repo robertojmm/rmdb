@@ -20,7 +20,7 @@
             color="negative"
             label="Delete"
             icon="delete"
-            @click="removeMovie"
+            @click="confirmRemoveMovie = true"
           />
           <q-btn
             color="warning"
@@ -43,6 +43,28 @@
       <q-page-container>
         <q-page class="no-overflow">
           <MovieForm :movie="updatedMovie" :readonly="editBlocked" />
+
+          <q-dialog v-model="confirmRemoveMovie" persistent>
+            <q-card>
+              <q-card-section class="row items-center">
+                <span class="q-ml-sm"
+                  >Are you sure you wanna delete '{{
+                    updatedMovie.title
+                  }}'?</span
+                >
+              </q-card-section>
+
+              <q-card-actions align="right">
+                <q-btn flat label="Cancel" color="primary" v-close-popup />
+                <q-btn
+                  flat
+                  label="Sure"
+                  color="negative"
+                  @click="removeMovie"
+                />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
         </q-page>
       </q-page-container>
 
@@ -76,6 +98,7 @@ export default {
       updatedMovie: {},
       editBlocked: true,
       hasFileAssociated: false,
+      confirmRemoveMovie: false,
     };
   },
   mounted() {
