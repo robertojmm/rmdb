@@ -22,7 +22,7 @@
   - [x] Delete movie btn
     - [x] Close Editor
     - [x] Refresh movie list (try to just delete Movie Component)
-    - [ ] Confirm popup !!!!
+    - [x] Confirm popup !!!!
   - [x] Play Movie
     - [ ] Throw Exception if file not found
   - [x] Open Location
