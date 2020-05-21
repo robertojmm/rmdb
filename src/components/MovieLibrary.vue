@@ -40,7 +40,7 @@
         v-for="movie in movies"
         v-bind:key="movie.id"
         v-bind:movie="movie"
-        :size="movieCaseWidth.value"
+        :size="movieCaseWidth"
         @dblclick.native="openMovieForm(movie)"
       ></movie>
     </div>

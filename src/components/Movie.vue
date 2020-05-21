@@ -1,6 +1,8 @@
 <template>
-  <div :class="this.size">
-    <q-img :src="movie.posterUrl" />
+  <div :class="this.size.value">
+    <q-img v-if="this.size.label == 'Small'" :src="movie.posterUrl" />
+    <q-img v-if="this.size.label == 'Normal'" :src="movie.posterUrl" />
+    <q-img v-if="this.size.label == 'Big'" :src="movie.posterUrl" />
   </div>
 </template>
 
@@ -11,7 +13,7 @@ export default {
   name: "Movie",
   props: {
     movie: Movie,
-    size: String,
+    size: Object,
   },
 };
 </script>
