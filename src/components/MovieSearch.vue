@@ -14,7 +14,7 @@
             ref="sample"
             width="75%"
             class="rounded-borders"
-            :src="movie.posterUrl"
+            :src="movie.posterUrl.big"
           />
         </q-card-section>
       </q-card-section>

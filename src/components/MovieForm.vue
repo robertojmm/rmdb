@@ -55,7 +55,7 @@
     </div>
 
     <div class="col-4">
-      <q-img class="rounded-borders" :src="movie.posterUrl" width="95%" />
+      <q-img class="rounded-borders" :src="movie.posterUrl.big" width="95%" />
     </div>
   </div>
 </template>

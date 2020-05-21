@@ -41,12 +41,15 @@ class TheMovieDBExtractor implements Extractor {
             id: actual.id,
             title: actual.title,
             plot: actual.overview,
-            posterUrl: "https://image.tmdb.org/t/p/original" + poster, //actual.backdrop_path,
+            posterUrl: {
+              normal: "",
+              big: "https://image.tmdb.org/t/p/original" + poster,
+            }, //actual.backdrop_path,
             releaseDate: actual.release_date,
             viewed: false,
           };
 
-          if (!poster) movie.posterUrl = "/not-found.png";
+          if (!poster) movie.posterUrl.big = "/not-found.png";
 
           newMovies.push(movie);
         }

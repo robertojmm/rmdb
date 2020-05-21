@@ -1,8 +1,8 @@
 <template>
   <div :class="this.size.value">
-    <q-img v-if="this.size.label == 'Small'" :src="movie.posterUrl" />
-    <q-img v-if="this.size.label == 'Normal'" :src="movie.posterUrl" />
-    <q-img v-if="this.size.label == 'Big'" :src="movie.posterUrl" />
+    <q-img v-if="this.size.label == 'Small'" :src="movie.posterUrl.normal" />
+    <q-img v-if="this.size.label == 'Normal'" :src="movie.posterUrl.normal" />
+    <q-img v-if="this.size.label == 'Big'" :src="movie.posterUrl.big" />
   </div>
 </template>
 

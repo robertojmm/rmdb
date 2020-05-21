@@ -43,6 +43,14 @@
         :size="movieCaseWidth"
         @dblclick.native="openMovieForm(movie)"
       ></movie>
+      <!-- <movie
+        class="movie"
+        v-for="index in 100"
+        :key="index"
+        v-bind:movie="movies[0]"
+        :size="movieCaseWidth"
+        @dblclick.native="openMovieForm(movies[0])"
+      ></movie> -->
     </div>
     <BackToTopArrow />
   </div>
