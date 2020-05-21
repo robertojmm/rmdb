@@ -43,7 +43,7 @@ class TheMovieDBExtractor implements Extractor {
             plot: actual.overview,
             posterUrl: "https://image.tmdb.org/t/p/original" + poster, //actual.backdrop_path,
             releaseDate: actual.release_date,
-            viewed: 0,
+            viewed: false,
           };
 
           if (!poster) movie.posterUrl = "/not-found.png";
