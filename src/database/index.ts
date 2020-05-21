@@ -3,6 +3,7 @@ import sqlite3 from "sqlite3";
 import axios from "axios";
 import Movie from "@/interfaces/movie.interface";
 import fs from "fs";
+import sharp from "sharp";
 sqlite3.verbose();
 
 class MovieDataBase {
@@ -42,13 +43,16 @@ class MovieDataBase {
     const movies: Movie[] = [];
 
     for (const row of rows) {
-      const posterBase64 = this.base64ImageEncode(row.poster_path);
+      const posterPaths = JSON.parse(row.poster_path);
 
       const movie: Movie = {
         id: row.id,
         title: row.title,
         plot: row.plot,
-        posterUrl: posterBase64,
+        posterUrl: {
+          normal: this.base64ImageEncode(posterPaths.normal),
+          big: this.base64ImageEncode(posterPaths.big),
+        },
         filePath: row.file_path,
         viewed: !!row.viewed,
         releaseDate: row.release_date,
@@ -60,28 +64,65 @@ class MovieDataBase {
     return movies;
   }
 
+  async getPosters(movie: Movie) {
+    const posters: {
+      small?: Buffer;
+      normal?: Buffer;
+      big?: Buffer;
+    } = {};
+
+    const sizes = {
+      normal: { w: posters },
+    };
+
+    const rawPoster = await axios
+      .get(movie.posterUrl.big, {
+        responseType: "arraybuffer",
+      })
+      .then((response) => response.data);
+
+    posters.big = Buffer.from(rawPoster);
+
+    posters.normal = await sharp(posters.big)
+      .metadata()
+      .then(({ width }) =>
+        sharp(posters.big)
+          .resize(Math.round(width * 0.5), null, {
+            //.resize(640, 854, {
+            fit: "inside",
+          })
+          .jpeg()
+          .toBuffer()
+      );
+    console.log(posters);
+
+    return posters;
+  }
+
   async insertMovie(movie: Movie): Promise<null | Error> {
     console.log(movie);
     const sql = `INSERT INTO MOVIES 
     (TITLE, PLOT, RELEASE_DATE, POSTER_PATH, FILE_PATH, VIEWED, DIRECTOR_ID) 
     VALUES ($title, $plot, $releaseDate, $posterPath, $filePath, $viewed, $directorId)`;
 
-    const posterExtension = movie.posterUrl.split(".").pop();
-    const poster = await axios
-      .get(movie.posterUrl, {
-        responseType: "arraybuffer",
-      })
-      .then((response) => response.data);
+    const posterExtension = movie.posterUrl.big.split(".").pop();
 
-    const posterName = movie.title.split(" ").join("_");
-    const posterPath =
-      settings.get("directories").posters +
-      "/" +
-      posterName +
-      "." +
-      posterExtension;
+    const posters = await this.getPosters(movie);
 
-    fs.writeFile(posterPath, Buffer.from(poster), "binary", (err: any) => {
+    const posterName = btoa(movie.title);
+    const posterPath = settings.get("directories").posters + "/" + posterName;
+
+    const paths = {
+      //small: posterPath + "_xs." + posterExtension,
+      normal: posterPath + "_md." + posterExtension,
+      big: posterPath + "_xl." + posterExtension,
+    };
+
+    fs.writeFile(paths.big, posters.big, "binary", (err: any) => {
+      if (err) throw err;
+    });
+
+    fs.writeFile(paths.normal, posters.normal, "binary", (err: any) => {
       if (err) throw err;
     });
 
@@ -94,7 +135,7 @@ class MovieDataBase {
           $title: movie.title,
           $plot: movie.plot,
           $releaseDate: movie.releaseDate,
-          $posterPath: posterPath,
+          $posterPath: JSON.stringify(paths),
           $filePath: movie.filePath,
           $viewed: movie.viewed,
           $directorId: 1,
