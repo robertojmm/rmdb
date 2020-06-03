@@ -39,6 +39,7 @@
 
   - Settings
     - [ ] Load actual settings when route open
+    - [ ] clean all library
   - Info
     - [ ] Start
 
