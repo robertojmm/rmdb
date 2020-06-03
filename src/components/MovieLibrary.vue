@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <MovieEditor
+    <movieEditor
       v-if="showEditor"
       v-on:close="showEditor = false"
       v-on:update="refreshMovie"
@@ -52,7 +52,7 @@
         @dblclick.native="openMovieForm(movies[0])"
       ></movie> -->
     </div>
-    <BackToTopArrow />
+    <backToTopArrow />
   </div>
 </template>
 

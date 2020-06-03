@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MovieLibrary />
+    <movieLibrary />
   </div>
 </template>
 
@@ -10,8 +10,8 @@ import MovieLibrary from "@/components/MovieLibrary";
 export default {
   name: "Library",
   components: {
-    MovieLibrary
-  }
+    MovieLibrary,
+  },
 };
 </script>
 

@@ -16,17 +16,17 @@
     </div>
 
     <div class="row q-ma-md">
-      <MovieSearch
+      <movieSearch
         v-on:loadMovie="loadMovieIntoForm"
         v-for="movie in movies"
         v-bind:key="movie.id"
         v-bind:movie="movie"
-      ></MovieSearch>
+      />
     </div>
 
     <div class="row q-ma-md">
       <div class="col-12">
-        <MovieForm v-if="showForm" :movie="actualMovie" />
+        <movieForm v-if="showForm" :movie="actualMovie" />
       </div>
       <div v-if="showForm" class="col-4">
         <q-btn
@@ -56,7 +56,7 @@
       </q-card>
     </q-dialog>
 
-    <BackToTopArrow />
+    <backToTopArrow />
   </div>
 </template>
 

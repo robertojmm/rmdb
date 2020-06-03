@@ -42,7 +42,7 @@
 
       <q-page-container>
         <q-page class="no-overflow">
-          <MovieForm :movie="updatedMovie" :readonly="editBlocked" />
+          <movieForm :movie="updatedMovie" :readonly="editBlocked" />
 
           <q-dialog v-model="confirmRemoveMovie" persistent>
             <q-card>
