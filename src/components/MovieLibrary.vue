@@ -17,9 +17,7 @@
           :options="moviePosterSizes"
           style="width: 250px"
         />
-        <q-badge color="secondary"
-          >Total of movies: {{ movies.length }}</q-badge
-        >
+        <q-badge color="secondary">Total of movies: {{ movies.length }}</q-badge>
       </div>
       <div class="col-1">
         <q-btn color="secondary" icon="cached" @click="loadMovies" />
@@ -50,7 +48,7 @@
         v-bind:movie="movies[0]"
         :size="movieCaseWidth"
         @dblclick.native="openMovieForm(movies[0])"
-      ></movie> -->
+      ></movie>-->
     </div>
     <backToTopArrow />
   </div>
@@ -74,8 +72,8 @@ export default {
       moviePosterSizes: [
         { label: "Small", value: "col-1" },
         { label: "Normal", value: "col-2" },
-        { label: "Big", value: "col-3" },
-      ],
+        { label: "Big", value: "col-3" }
+      ]
     };
   },
   created() {
@@ -99,7 +97,7 @@ export default {
     },
     loadMovies() {
       console.log("loading");
-      movieDatabase.loadAllMovies().then((movies) => {
+      movieDatabase.loadAllMovies().then(movies => {
         console.log(movies);
         this.movies = movies;
       });
@@ -110,7 +108,7 @@ export default {
         const title = event.target.value.trim();
         movieDatabase
           .searchMovie(title)
-          .then((movies) => {
+          .then(movies => {
             this.movies = movies;
           })
           .catch(console.error);
@@ -121,13 +119,13 @@ export default {
       this.showEditor = true;
 
       this.findMovieIndex(movie.id);
-    },
+    }
   },
   components: {
     Movie,
     BackToTopArrow,
-    MovieEditor,
-  },
+    MovieEditor
+  }
 };
 </script>
 
@@ -140,5 +138,7 @@ export default {
 .movie:hover {
   transition: transform 0.2s linear;
   transform: scale(0.9);
+
+  cursor: pointer;
 }
 </style>
