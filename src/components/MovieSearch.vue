@@ -1,7 +1,7 @@
 <template>
   <!--div class="row"-->
   <div class="col-12 col-md-6">
-    <q-card class="my-card" flat bordered>
+    <q-card class="my-card q-ma-xs" flat bordered>
       <q-card-section horizontal>
         <q-card-section class="q-pt-xs">
           <div class="text-overline">{{ getMovieYear() }}</div>
