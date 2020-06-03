@@ -51,7 +51,7 @@ Rmdb is a free open-source app to store all your movies and have a track about t
 
 # Recomendaciones de Carlos:
 
-- [ ] Paquete RIP para hacer los posters de las películas (https://github.com/MarcusCemes/responsive-image-builder). Formato webp. Ajustar el tamaño de los posters en función de la pantalla del usuario
+- [x] Paquete RIP para hacer los posters de las películas (https://github.com/MarcusCemes/responsive-image-builder). Formato webp. Ajustar el tamaño de los posters en función de la pantalla del usuario
 
 <picture>
   <source src="assets/image_xs.webp">
@@ -60,7 +60,7 @@ Rmdb is a free open-source app to store all your movies and have a track about t
 
 <source media="min XXX & max XX" src="assets/image_xs.webp">
 
-- [ ] Cambiar componentes en los html a minuscula
+- [x] Cambiar componentes en los html a minuscula
 
 * Preguntar a Carlos:
   - Cambiar letras en los botones por tooltips
