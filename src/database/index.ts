@@ -4,6 +4,7 @@ import axios from "axios";
 import Movie from "@/interfaces/movie.interface";
 import fs from "fs";
 import sharp from "sharp";
+import { remote } from "electron";
 sqlite3.verbose();
 
 class MovieDataBase {
@@ -20,9 +21,13 @@ class MovieDataBase {
       }
     );
 
-    const dbSchema = fs
-      .readFileSync("./src/database/database_schema.sql")
-      .toString();
+    const isProduction = remote.app.isPackaged;
+
+    const dbSchemaPath = isProduction
+      ? __dirname + "/../database_schema.sql"
+      : "./src/database/database_schema.sql";
+
+    const dbSchema = fs.readFileSync(dbSchemaPath).toString();
     this.db.exec(dbSchema, (error: any) => {
       if (error) {
         throw error;
@@ -87,11 +92,13 @@ class MovieDataBase {
       .metadata()
       .then(({ width }) =>
         sharp(posters.big)
-          .resize(Math.round(width * 0.5), null, {
+          .resize(Math.round(width! * 0.5), null, {
             //.resize(640, 854, {
             fit: "inside",
           })
-          .jpeg()
+          .jpeg({
+            quality: 70,
+          })
           .toBuffer()
       );
     console.log(posters);

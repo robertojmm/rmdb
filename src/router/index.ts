@@ -12,6 +12,10 @@ const routes: Array<RouteConfig> = [
     component: AddMovie,
   },
   {
+    path: "*",
+    redirect: "/library",
+  },
+  {
     path: "/",
     redirect: "/library",
   },
