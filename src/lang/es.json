@@ -1,4 +1,9 @@
 {
+  "common": {
+    "cancel": "Cancelar",
+    "yes": "Si",
+    "ok": "Vale"
+  },
   "menu_drawer": {
     "add_movie": "Añadir Película",
     "movie_library": "Librería",
@@ -10,7 +15,8 @@
     "edit_btn": "Editar",
     "delete_btn": "Eliminar",
     "open_location": "Abrir ubicación",
-    "save_btn": "Guardar"
+    "save_btn": "Guardar",
+    "delete_dialog": "¿Estás seguro de que quieres eliminar '{title}'?"
   },
   "movie_form": {
     "title": "Titulo",

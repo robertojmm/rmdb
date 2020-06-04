@@ -1,4 +1,9 @@
 {
+  "common": {
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "ok": "Ok"
+  },
   "menu_drawer": {
     "add_movie": "Add Movie",
     "movie_library": "Movie Library",
@@ -10,7 +15,8 @@
     "edit_btn": "Edit",
     "delete_btn": "Delete",
     "open_location": "Open movie location",
-    "save_btn": "Save"
+    "save_btn": "Save",
+    "delete_dialog": "Are you sure you wanna delete '{title}'?"
   },
   "movie_form": {
     "title": "Title",
