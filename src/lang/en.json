@@ -12,5 +12,13 @@
     "delete_btn": "Delete",
     "open_location": "Open movie location",
     "save_btn": "Save"
+  },
+  "movie_form": {
+    "title": "Title",
+    "release_date": "Release date",
+    "synopsis": "Synopsis",
+    "file_location": "File location",
+    "viewed": "Viewed",
+    "not_viewed": "Not viewed"
   }
 }

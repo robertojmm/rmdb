@@ -8,7 +8,7 @@
           <q-input
             outlined
             v-model="movie.title"
-            label="Movie Title"
+            :label="$t('movie_form.title')"
             :readonly="readonly"
           ></q-input>
         </div>
@@ -16,7 +16,7 @@
           <q-input
             outlined
             v-model="movie.releaseDate"
-            label="Release Date"
+            :label="$t('movie_form.release_date')"
             :readonly="readonly"
           ></q-input>
         </div>
@@ -24,6 +24,7 @@
         <div class="col-12">
           <q-input
             v-model="movie.plot"
+            :label="$t('movie_form.synopsis')"
             rows="9"
             filled
             type="textarea"
@@ -33,7 +34,7 @@
 
         <div class="col-8">
           <q-file
-            label="File Location"
+            :label="$t('movie_form.file_location')"
             v-model="file"
             filled
             @input="(file) => (this.movie.filePath = file.path)"
@@ -42,11 +43,11 @@
         </div>
         <div class="col-4">
           <q-toggle
-            :false-value="'Not viewed'"
-            :label="`${viewed}`"
-            :true-value="'Viewed'"
+            :false-value="$t('movie_form.not_viewed')"
+            :label="`${isViewed}`"
+            :true-value="$t('movie_form.viewed')"
             color="secondary"
-            v-model="viewed"
+            v-model="isViewed"
             @input="setViewedState"
             :disable="readonly"
           />
@@ -68,12 +69,14 @@ export default {
   data() {
     return {
       file: null,
-      viewed: "Not viewed",
+      isViewed: this.$t("movie_form.not_viewed"),
+      viewed: this.$t("movie_form.viewed"),
+      notViewed: this.$t("movie_form.not_viewed")
     };
   },
   props: {
     movie: Movie,
-    readonly: Boolean,
+    readonly: Boolean
   },
   mounted() {
     if (this.movie.filePath) {
@@ -81,13 +84,13 @@ export default {
       this.file = new File([], fileName);
     }
 
-    this.viewed = this.movie.viewed ? "Viewed" : "Not viewed";
+    this.isViewed = this.movie.viewed ? this.viewed : this.notViewed;
   },
   methods: {
     setViewedState(state) {
-      this.movie.viewed = state === "Viewed";
-    },
-  },
+      this.movie.viewed = state === this.viewed;
+    }
+  }
 };
 </script>
 
