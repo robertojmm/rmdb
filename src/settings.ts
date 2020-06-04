@@ -17,7 +17,6 @@ const settings = new Store({
     },
     language: "en",
     extractor: Extractors.TheMovieDB,
-    mediaPlayerPath: "",
   },
 });
 
