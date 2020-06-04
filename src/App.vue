@@ -27,7 +27,7 @@
               <q-icon name="add_circle"></q-icon>
             </q-item-section>
 
-            <q-item-section>Add movie</q-item-section>
+            <q-item-section>{{ $t("menu_drawer.add_movie") }}</q-item-section>
           </q-item>
 
           <q-item to="/library" clickable v-ripple>
@@ -35,7 +35,9 @@
               <q-icon name="list"></q-icon>
             </q-item-section>
 
-            <q-item-section>Movie library</q-item-section>
+            <q-item-section>{{
+              $t("menu_drawer.movie_library")
+            }}</q-item-section>
           </q-item>
 
           <q-separator></q-separator>
@@ -45,7 +47,7 @@
               <q-icon name="settings"></q-icon>
             </q-item-section>
 
-            <q-item-section>Settings</q-item-section>
+            <q-item-section>{{ $t("menu_drawer.settings") }}</q-item-section>
           </q-item>
 
           <q-item to="/about" clickable v-ripple>
@@ -53,7 +55,7 @@
               <q-icon name="info"></q-icon>
             </q-item-section>
 
-            <q-item-section>About</q-item-section>
+            <q-item-section>{{ $t("menu_drawer.about") }}</q-item-section>
           </q-item>
         </q-list>
       </q-scroll-area>
