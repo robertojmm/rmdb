@@ -1,0 +1,9 @@
+{
+  "message": "hola i18n !!",
+  "menu_drawer": {
+    "add_movie": "Añadir Película",
+    "movie_library": "Librería",
+    "settings": "Configuración",
+    "about": "Información"
+  }
+}

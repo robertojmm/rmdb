@@ -1,7 +1,7 @@
 interface Extractor {
   apiBaseUrl: string;
   movieSearchEndPoint: string;
-  params: Object;
+  params: Record<string, any>;
 
   searchMovie(title: string): void;
   fetchMovie(): void;
