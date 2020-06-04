@@ -1,5 +1,4 @@
 {
-  "message": "hola i18n !!",
   "menu_drawer": {
     "add_movie": "Añadir Película",
     "movie_library": "Librería",
@@ -20,5 +19,9 @@
     "file_location": "Ubicación del archivo",
     "viewed": "Vista",
     "not_viewed": "No vista"
+  },
+  "languages": {
+    "english": "Inglés",
+    "spanish": "Español"
   }
 }
