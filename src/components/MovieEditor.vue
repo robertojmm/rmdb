@@ -4,34 +4,21 @@
       <q-header elevated class="bg-primary text-white">
         <q-toolbar class="toolbar">
           <q-btn
-            color="green"
+            flat
             icon="play_arrow"
             @click="playMovie"
             :disable="!hasFileAssociated"
           />
+          <q-btn flat icon="edit" @click="editBlocked = !editBlocked" />
+          <q-btn flat icon="delete" @click="confirmRemoveMovie = true" />
           <q-btn
-            color="secondary"
-            icon="edit"
-            @click="editBlocked = !editBlocked"
-          />
-          <q-btn
-            color="negative"
-            icon="delete"
-            @click="confirmRemoveMovie = true"
-          />
-          <q-btn
-            color="warning"
+            flat
             icon="folder"
             @click="openMovieFolder"
             :disable="!hasFileAssociated"
           />
           <q-space />
-          <q-btn
-            color="purple"
-            icon="close"
-            @click="closeEditor"
-            v-close-popup
-          />
+          <q-btn flat icon="close" @click="closeEditor" v-close-popup />
         </q-toolbar>
       </q-header>
 
@@ -51,7 +38,12 @@
 
               <q-card-actions align="right">
                 <q-btn flat label="Cancel" color="primary" v-close-popup />
-                <q-btn flat color="negative" @click="removeMovie" />
+                <q-btn
+                  flat
+                  label="Sure"
+                  color="negative"
+                  @click="removeMovie"
+                />
               </q-card-actions>
             </q-card>
           </q-dialog>
@@ -61,12 +53,7 @@
       <q-footer elevated class="bg-grey-8 text-white">
         <q-toolbar>
           <q-space />
-          <q-btn
-            :disable="editBlocked"
-            color="primary"
-            icon="save"
-            @click="updateMovie"
-          />
+          <q-btn :disable="editBlocked" flat icon="save" @click="updateMovie" />
         </q-toolbar>
       </q-footer>
     </q-layout>
