@@ -71,14 +71,9 @@ class MovieDataBase {
 
   async getPosters(movie: Movie) {
     const posters: {
-      small?: Buffer;
       normal?: Buffer;
       big?: Buffer;
     } = {};
-
-    const sizes = {
-      normal: { w: posters },
-    };
 
     const rawPoster = await axios
       .get(movie.posterUrl.big, {
@@ -101,7 +96,6 @@ class MovieDataBase {
           })
           .toBuffer()
       );
-    console.log(posters);
 
     return posters;
   }
@@ -120,7 +114,6 @@ class MovieDataBase {
     const posterPath = settings.get("directories").posters + "/" + posterName;
 
     const paths = {
-      //small: posterPath + "_xs." + posterExtension,
       normal: posterPath + "_md." + posterExtension,
       big: posterPath + "_xl." + posterExtension,
     };
@@ -237,8 +230,13 @@ class MovieDataBase {
       );
     })
       .then((rows: any) => {
-        const posterPath = rows[0].poster_path;
-        fs.unlink(posterPath, (error) => {
+        const posterPath = JSON.parse(rows[0].poster_path);
+
+        fs.unlink(posterPath.normal, (error) => {
+          if (error) console.log(error);
+        });
+
+        fs.unlink(posterPath.big, (error) => {
           if (error) console.log(error);
         });
       })
