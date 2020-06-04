@@ -1,11 +1,7 @@
 <template>
   <div :class="this.size.value">
     <q-img
-      v-if="this.size.label == $t('movie_library.poster_sizes.small')"
-      :src="movie.posterUrl.normal"
-    />
-    <q-img
-      v-if="this.size.label == $t('movie_library.poster_sizes.normal')"
+      v-if="this.size.label !== $t('movie_library.poster_sizes.big')"
       :src="movie.posterUrl.normal"
     />
     <q-img
