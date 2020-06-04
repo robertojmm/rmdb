@@ -3,7 +3,7 @@
     <q-list>
       <q-item>
         <q-item-section>
-          <q-item-label>Language</q-item-label>
+          <q-item-label>{{ $t("settings.language") }}</q-item-label>
         </q-item-section>
         <q-item-section>
           <q-select
@@ -18,7 +18,7 @@
 
       <q-item>
         <q-item-section>
-          <q-item-label>Default parser</q-item-label>
+          <q-item-label>{{ $t("settings.default_parser") }}</q-item-label>
         </q-item-section>
         <q-item-section>
           <q-btn label="CLEAN" color="negative"></q-btn>
@@ -29,7 +29,7 @@
 
       <q-item>
         <q-item-section>
-          <q-item-label>Theme</q-item-label>
+          <q-item-label>{{ $t("settings.theme") }}</q-item-label>
         </q-item-section>
         <q-item-section>
           <q-btn label="CLEAN" color="negative"></q-btn>
@@ -40,7 +40,7 @@
 
       <q-item>
         <q-item-section>
-          <q-item-label>Clean database</q-item-label>
+          <q-item-label>{{ $t("settings.clean_db") }}</q-item-label>
         </q-item-section>
         <q-item-section>
           <q-btn label="CLEAN" color="negative"></q-btn>

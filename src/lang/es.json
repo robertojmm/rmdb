@@ -23,6 +23,12 @@
     "success_status": "Finzalizado",
     "success_message": "La película ha sido añadida a tu colección correctamente"
   },
+  "settings": {
+    "language": "Idioma",
+    "default_parser": "Parseador predeterminado",
+    "theme": "Tema",
+    "clean_db": "Limpiar base de datos"
+  },
   "menu_drawer": {
     "add_movie": "Añadir Película",
     "movie_library": "Librería",

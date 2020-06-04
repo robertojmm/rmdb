@@ -23,6 +23,12 @@
     "success_status": "Finished",
     "success_message": "The movie was added to your collection succesfully"
   },
+  "settings": {
+    "language": "Language",
+    "default_parser": "Default parser",
+    "theme": "Theme",
+    "clean_db": "Clean database"
+  },
   "menu_drawer": {
     "add_movie": "Add Movie",
     "movie_library": "Movie Library",
