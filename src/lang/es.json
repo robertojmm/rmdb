@@ -4,6 +4,16 @@
     "yes": "Si",
     "ok": "Vale"
   },
+  "movie_library": {
+    "search": "Buscar en Rmdb",
+    "total_movies": "Total de películas: {amount}",
+    "poster_size": "Tamaño de posters",
+    "poster_sizes": {
+      "small": "Pequeño",
+      "normal": "Normal",
+      "big": "Grande"
+    }
+  },
   "menu_drawer": {
     "add_movie": "Añadir Película",
     "movie_library": "Librería",

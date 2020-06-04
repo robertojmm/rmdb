@@ -2,7 +2,12 @@
   <div class="q-ma-md">
     <div class="row q-col-gutter-md">
       <div class="col-4">
-        <q-input filled type="search" placeholder="Search" @keyup="searchMovie">
+        <q-input
+          filled
+          type="search"
+          :placeholder="$t('movie_library.search')"
+          @keyup="searchMovie"
+        >
           <template v-slot:append>
             <q-icon name="search" />
           </template>
@@ -12,12 +17,12 @@
         <!-- <q-slider v-model="movieCaseWidth" :min="50" :max="100" /> -->
         <q-select
           filled
-          label="Poster Size"
+          :label="$t('movie_library.poster_size')"
           v-model="movieCaseWidth"
           :options="moviePosterSizes"
           style="width: 250px"
         />
-        <q-badge color="secondary">Total of movies: {{ movies.length }}</q-badge>
+        <q-badge color="secondary">{{ $t("movie_library.total_movies", { amount: movies.length })}}</q-badge>
       </div>
       <div class="col-1">
         <q-btn color="secondary" icon="cached" @click="loadMovies" />
@@ -68,20 +73,20 @@ export default {
       movies: [],
       search: "",
       timeOut: undefined,
-      movieCaseWidth: { label: "Normal", value: "col-2" },
+      movieCaseWidth: {
+        label: this.$t("movie_library.poster_sizes.normal"),
+        value: "col-2"
+      },
       moviePosterSizes: [
-        { label: "Small", value: "col-1" },
-        { label: "Normal", value: "col-2" },
-        { label: "Big", value: "col-3" }
+        { label: this.$t("movie_library.poster_sizes.small"), value: "col-1" },
+        { label: this.$t("movie_library.poster_sizes.normal"), value: "col-2" },
+        { label: this.$t("movie_library.poster_sizes.big"), value: "col-3" }
       ]
     };
   },
-  created() {
-    console.log("created");
-  },
   mounted() {
     this.loadMovies();
-    console.log("mounted");
+    console.log(this.$t("movie_library"));
   },
   methods: {
     refreshMovie(updatedMovie) {
