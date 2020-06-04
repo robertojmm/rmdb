@@ -63,5 +63,10 @@ Rmdb is a free open-source app to store all your movies and have a track about t
 - [x] Cambiar componentes en los html a minuscula
 
 * Preguntar a Carlos:
-  - Cambiar letras en los botones por tooltips
-  - Quitar los colores de los botones
+  - Cambiar letras en los botones por tooltips (hacerlo)
+  - Quitar los colores de los botones (hacerlo)
+  - Dejar todos los botones como si fueran uno (mismo fondo)
+
+Cambiar extractors a parsers
+Idioma
+Customizar colores (Paletas) (variables CSS) (--primary) (de cara al final del desarrollo)
