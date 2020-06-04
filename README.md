@@ -43,10 +43,11 @@
 
   - Settings
     - [ ] Load actual settings when route open
-    - [ ] Language Option
+    - [x] Language Option
     - [ ] Stablish default parser
     - [ ] clean all library
     - [ ] Themes
+    - [ ] Default poster size
   - Info
     - [ ] Start
 
