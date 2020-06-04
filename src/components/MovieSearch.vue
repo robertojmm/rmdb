@@ -10,12 +10,7 @@
         </q-card-section>
 
         <q-card-section class="col-5 flex flex-center">
-          <q-img
-            ref="sample"
-            width="75%"
-            class="rounded-borders"
-            :src="movie.posterUrl.big"
-          />
+          <q-img ref="sample" width="75%" class="rounded-borders" :src="movie.posterUrl.big" />
         </q-card-section>
       </q-card-section>
 
@@ -24,9 +19,7 @@
       <q-card-actions>
         <!-- <q-btn flat round icon="event" />
         <q-btn flat>7:30PM</q-btn>-->
-        <q-btn @click="loadMovieInto" flat color="primary" icon-right="add"
-          >Add</q-btn
-        >
+        <q-btn @click="loadMovieInto" flat color="primary" icon-right="add">{{ $t("common.add") }}</q-btn>
       </q-card-actions>
     </q-card>
   </div>
@@ -44,11 +37,11 @@ export default {
     },
     getMovieYear() {
       return this.movie.releaseDate.substr(0, 4);
-    },
+    }
   },
   props: {
-    movie: Movie,
-  },
+    movie: Movie
+  }
 };
 </script>
 

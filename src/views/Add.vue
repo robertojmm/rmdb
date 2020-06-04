@@ -2,12 +2,16 @@
   <div>
     <div class="row q-ma-md q-col-gutter-md">
       <div class="col-10">
-        <q-input label="Movie title" @keyup="performSearch" ref="searchInput" />
+        <q-input
+          :label="$t('movie_add.search')"
+          @keyup="performSearch"
+          ref="searchInput"
+        />
       </div>
       <div class="col-2">
         <q-select
           filled
-          label="Extractor"
+          :label="$t('movie_add.parser')"
           v-model="actualExtractor"
           :options="extractors"
           style="width: 250px"
@@ -32,7 +36,7 @@
         <q-btn
           ref="saveButton"
           type="button"
-          label="Save"
+          :label="$t('movie_add.save')"
           class="q-mt-md"
           color="primary"
           @click="saveMovie"
@@ -46,9 +50,9 @@
           <div class="text-h6">{{ this.dialog.title }}</div>
         </q-card-section>
 
-        <q-card-section class="q-pt-none">{{
-          this.dialog.message
-        }}</q-card-section>
+        <q-card-section class="q-pt-none">
+          {{ this.dialog.message }}
+        </q-card-section>
 
         <q-card-actions align="right">
           <q-btn flat label="OK" color="primary" v-close-popup />
@@ -80,7 +84,6 @@ export default {
       timeOut: undefined,
       movies: [],
       showForm: false,
-      sample: "sample",
       actualMovie: {},
       actualExtractor: null,
       extractors: [],
@@ -122,12 +125,11 @@ export default {
       this.dialog.open = true;
 
       if (result instanceof Error) {
-        this.dialog.title = "Error";
+        this.dialog.title = this.$t("movie_add.error_status");
         this.dialog.message = result;
       } else {
-        this.dialog.title = "Finished";
-        this.dialog.message =
-          "The movie was added to your collection succesfully";
+        this.dialog.title = this.$t("movie_add.success_status");
+        this.dialog.message = this.$t("movie_add.success_message");
 
         this.$refs.saveButton.$el.disabled = true;
       }
