@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row q-ma-md q-col-gutter-md">
-      <div class="col-10">
+      <div class="col-9">
         <q-input
           :label="$t('movie_add.search')"
           @keyup="performSearch"
