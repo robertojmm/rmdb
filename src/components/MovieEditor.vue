@@ -5,26 +5,22 @@
         <q-toolbar class="toolbar">
           <q-btn
             color="green"
-            label="Play"
             icon="play_arrow"
             @click="playMovie"
             :disable="!hasFileAssociated"
           />
           <q-btn
             color="secondary"
-            label="Edit"
             icon="edit"
             @click="editBlocked = !editBlocked"
           />
           <q-btn
             color="negative"
-            label="Delete"
             icon="delete"
             @click="confirmRemoveMovie = true"
           />
           <q-btn
             color="warning"
-            label="Open location"
             icon="folder"
             @click="openMovieFolder"
             :disable="!hasFileAssociated"
@@ -32,7 +28,6 @@
           <q-space />
           <q-btn
             color="purple"
-            label="Close"
             icon="close"
             @click="closeEditor"
             v-close-popup
@@ -56,12 +51,7 @@
 
               <q-card-actions align="right">
                 <q-btn flat label="Cancel" color="primary" v-close-popup />
-                <q-btn
-                  flat
-                  label="Sure"
-                  color="negative"
-                  @click="removeMovie"
-                />
+                <q-btn flat color="negative" @click="removeMovie" />
               </q-card-actions>
             </q-card>
           </q-dialog>
@@ -74,7 +64,6 @@
           <q-btn
             :disable="editBlocked"
             color="primary"
-            label="Save"
             icon="save"
             @click="updateMovie"
           />
