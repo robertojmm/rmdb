@@ -13,9 +13,10 @@
           </q-item-section>
           <q-item-section side style="width: 200px">
             <!-- <q-toggle color="blue" v-model="visible" val="battery" /> -->
-            <q-file
-              filled
-              @input="(file) => changeSettingPath('mediaPlayerPath', file)"
+            <q-select
+              v-model="actualLanguage"
+              :options="languages"
+              @input="changeLanguage"
             />
           </q-item-section>
         </q-item>
@@ -37,18 +38,45 @@
 
 <script>
 import { settings } from "@/settings";
+import i18n from "@/i18n";
+console.log(i18n);
+
 export default {
   name: "SettingsView",
   data() {
     return {
       visible: false,
+      actualLanguage: null,
+      languages: [],
     };
   },
+  mounted() {
+    this.loadLanguages();
+  },
   methods: {
-    changeSettingPath(name, newValue) {
-      console.log(name);
-      console.log(newValue.path);
-      settings.set(name, newValue.path);
+    loadLanguages() {
+      const languages = Object.entries(this.$t("languages"));
+      this.languages = [];
+
+      for (const [languageValue, languageName] of languages) {
+        const languageOption = {
+          label: languageName,
+          value: languageValue,
+        };
+
+        this.languages.push(languageOption);
+
+        if (settings.get("language") === languageValue) {
+          this.actualLanguage = languageOption;
+        }
+      }
+    },
+    changeLanguage(language) {
+      this.actualLanguage = language;
+
+      this.$i18n.locale = language.value;
+      settings.set("language", language.value);
+      this.loadLanguages();
     },
   },
 };
