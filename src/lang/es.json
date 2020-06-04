@@ -5,5 +5,12 @@
     "movie_library": "Librería",
     "settings": "Configuración",
     "about": "Información"
+  },
+  "movie_editor": {
+    "play_btn": "Reproducir",
+    "edit_btn": "Editar",
+    "delete_btn": "Eliminar",
+    "open_location": "Abrir ubicación",
+    "save_btn": "Guardar"
   }
 }

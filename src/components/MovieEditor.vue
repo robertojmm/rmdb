@@ -9,28 +9,28 @@
             @click="playMovie"
             :disable="!hasFileAssociated"
           >
-            <q-tooltip :delay="btnDelay" content-class="bg-accent"
-              >I'm a tooltip</q-tooltip
-            ></q-btn
+            <q-tooltip :delay="btnDelay" content-class="bg-accent">{{
+              $t("movie_editor.play_btn")
+            }}</q-tooltip></q-btn
           >
           <q-btn flat icon="edit" @click="editBlocked = !editBlocked"
-            ><q-tooltip :delay="btnDelay" content-class="bg-accent"
-              >I'm a tooltip</q-tooltip
-            ></q-btn
+            ><q-tooltip :delay="btnDelay" content-class="bg-accent">{{
+              $t("movie_editor.edit_btn")
+            }}</q-tooltip></q-btn
           >
           <q-btn flat icon="delete" @click="confirmRemoveMovie = true"
-            ><q-tooltip :delay="btnDelay" content-class="bg-accent"
-              >I'm a tooltip</q-tooltip
-            ></q-btn
+            ><q-tooltip :delay="btnDelay" content-class="bg-accent">{{
+              $t("movie_editor.delete_btn")
+            }}</q-tooltip></q-btn
           >
           <q-btn
             flat
             icon="folder"
             @click="openMovieFolder"
             :disable="!hasFileAssociated"
-            ><q-tooltip :delay="btnDelay" content-class="bg-accent"
-              >I'm a tooltip</q-tooltip
-            ></q-btn
+            ><q-tooltip :delay="btnDelay" content-class="bg-accent">{{
+              $t("movie_editor.open_location")
+            }}</q-tooltip></q-btn
           >
           <q-space />
           <q-btn flat icon="close" @click="closeEditor" v-close-popup />
@@ -74,7 +74,7 @@
               content-class="bg-accent"
               anchor="center left"
               self="center right"
-              >I'm a tooltip</q-tooltip
+              >{{ $t("movie_editor.save_btn") }}</q-tooltip
             ></q-btn
           >
         </q-toolbar>
