@@ -8,15 +8,30 @@
             icon="play_arrow"
             @click="playMovie"
             :disable="!hasFileAssociated"
-          />
-          <q-btn flat icon="edit" @click="editBlocked = !editBlocked" />
-          <q-btn flat icon="delete" @click="confirmRemoveMovie = true" />
+          >
+            <q-tooltip :delay="btnDelay" content-class="bg-accent"
+              >I'm a tooltip</q-tooltip
+            ></q-btn
+          >
+          <q-btn flat icon="edit" @click="editBlocked = !editBlocked"
+            ><q-tooltip :delay="btnDelay" content-class="bg-accent"
+              >I'm a tooltip</q-tooltip
+            ></q-btn
+          >
+          <q-btn flat icon="delete" @click="confirmRemoveMovie = true"
+            ><q-tooltip :delay="btnDelay" content-class="bg-accent"
+              >I'm a tooltip</q-tooltip
+            ></q-btn
+          >
           <q-btn
             flat
             icon="folder"
             @click="openMovieFolder"
             :disable="!hasFileAssociated"
-          />
+            ><q-tooltip :delay="btnDelay" content-class="bg-accent"
+              >I'm a tooltip</q-tooltip
+            ></q-btn
+          >
           <q-space />
           <q-btn flat icon="close" @click="closeEditor" v-close-popup />
         </q-toolbar>
@@ -53,7 +68,15 @@
       <q-footer elevated class="bg-grey-8 text-white">
         <q-toolbar>
           <q-space />
-          <q-btn :disable="editBlocked" flat icon="save" @click="updateMovie" />
+          <q-btn :disable="editBlocked" flat icon="save" @click="updateMovie"
+            ><q-tooltip
+              :delay="btnDelay"
+              content-class="bg-accent"
+              anchor="center left"
+              self="center right"
+              >I'm a tooltip</q-tooltip
+            ></q-btn
+          >
         </q-toolbar>
       </q-footer>
     </q-layout>
@@ -75,6 +98,7 @@ export default {
       editBlocked: true,
       hasFileAssociated: false,
       confirmRemoveMovie: false,
+      btnDelay: 1000,
     };
   },
   mounted() {
