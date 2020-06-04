@@ -5,11 +5,14 @@
 - General
 
   - [ ] Component 'changeSettingPath' INPUT that has an \$emit event which sends the new value to the father (use it on movieForm and in settings)
+  - [ ] Clean parsers
+  - [ ] Clean database class (???)
 
 - Add Movies
 
   - [ ] Allow pages
   - [ ] Auto Update movie library when new movie is added
+  - [ ] Manual input
 
 - Library
 
@@ -28,18 +31,22 @@
   - [x] Open Location
     - [ ] Throw Exception if folder not found
   - [ ] Option to rate movie
+  - [ ] Default image if image can't be found in folder
 * [x] Search movie
 * To Improve:
 
   - [x] Allow multiple movies in same row when poster is getting shrinked
-  - [ ] Check why it's needed to reload the app in the first launch
   - [x] Change database script to Class
+  - [ ] Change name from "extractor" to "parser"
 
 * Think if this is really necessary:
 
   - Settings
     - [ ] Load actual settings when route open
+    - [ ] Language Option
+    - [ ] Stablish default parser
     - [ ] clean all library
+    - [ ] Themes
   - Info
     - [ ] Start
 
