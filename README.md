@@ -38,6 +38,7 @@
   - [x] Allow multiple movies in same row when poster is getting shrinked
   - [x] Change database script to Class
   - [ ] Change name from "extractor" to "parser"
+  - [x] Set min windows size
 
 * Think if this is really necessary:
 
