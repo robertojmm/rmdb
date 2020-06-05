@@ -10,6 +10,7 @@
   - [x] Add directors!!
 
   - [ ] Avoid duplicated movies
+  - [ ] Check if the director has other movies when you delete a movie. In case he doesn't, delete him
 
 - Add Movies
 
