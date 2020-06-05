@@ -43,9 +43,9 @@
         </div>
         <div class="col-4">
           <q-toggle
-            :false-value="$t('movie_form.not_viewed')"
+            :false-value="$t('common.not_viewed')"
             :label="`${isViewed}`"
-            :true-value="$t('movie_form.viewed')"
+            :true-value="$t('common.viewed')"
             color="secondary"
             v-model="isViewed"
             @input="setViewedState"
@@ -69,14 +69,14 @@ export default {
   data() {
     return {
       file: null,
-      isViewed: this.$t("movie_form.not_viewed"),
-      viewed: this.$t("movie_form.viewed"),
-      notViewed: this.$t("movie_form.not_viewed")
+      isViewed: this.$t("common.not_viewed"),
+      viewed: this.$t("common.viewed"),
+      notViewed: this.$t("common.not_viewed"),
     };
   },
   props: {
     movie: Movie,
-    readonly: Boolean
+    readonly: Boolean,
   },
   mounted() {
     if (this.movie.filePath) {
@@ -89,8 +89,8 @@ export default {
   methods: {
     setViewedState(state) {
       this.movie.viewed = state === this.viewed;
-    }
-  }
+    },
+  },
 };
 </script>
 

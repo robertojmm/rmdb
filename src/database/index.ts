@@ -211,6 +211,23 @@ class MovieDataBase {
     });
   }
 
+  filterMovie(viewed: boolean): Promise<any> | Error {
+    return new Promise((resolve, reject) => {
+      const sql = `SELECT * FROM MOVIES WHERE VIEWED = $viewed ORDER BY title ASC`;
+
+      this.db.all(
+        sql,
+        {
+          $viewed: viewed,
+        },
+        (error: Error, rows: any) => {
+          if (error) reject(error);
+          resolve(this.rowsToMovieObjects(rows));
+        }
+      );
+    });
+  }
+
   deleteMovie(movie: Movie): Promise<any> {
     const sql = `DELETE FROM MOVIES WHERE ID = $id`;
     const sqlSearchPoster = `SELECT POSTER_PATH FROM MOVIES WHERE ID = $id`;

@@ -100,6 +100,7 @@ export default {
       this.$i18n.locale = language.value;
       settings.set("language", language.value);
       this.loadLanguages();
+      this.$root.$emit("languageChange");
     },
   },
 };

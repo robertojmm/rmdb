@@ -13,7 +13,7 @@
           </template>
         </q-input>
       </div>
-      <div class="col-7">
+      <div class="col-2">
         <!-- <q-slider v-model="movieCaseWidth" :min="50" :max="100" /> -->
         <q-select
           filled
@@ -22,7 +22,19 @@
           :options="moviePosterSizes"
           style="width: 250px"
         />
-        <q-badge color="secondary">{{ $t("movie_library.total_movies", { amount: movies.length })}}</q-badge>
+        <q-badge color="secondary">{{
+          $t("movie_library.total_movies", { amount: movies.length })
+        }}</q-badge>
+      </div>
+      <div class="col-2">
+        <q-select
+          filled
+          :label="this.$t('movie_library.filter')"
+          v-model="filter"
+          :options="filters"
+          style="width: 250px"
+          @input="filterMovies"
+        />
       </div>
       <div class="col-1">
         <q-btn color="secondary" icon="cached" @click="loadMovies" />
@@ -73,19 +85,16 @@ export default {
       movies: [],
       search: "",
       timeOut: undefined,
-      movieCaseWidth: {
-        label: this.$t("movie_library.poster_sizes.normal"),
-        value: "col-2"
-      },
-      moviePosterSizes: [
-        { label: this.$t("movie_library.poster_sizes.small"), value: "col-1" },
-        { label: this.$t("movie_library.poster_sizes.normal"), value: "col-2" },
-        { label: this.$t("movie_library.poster_sizes.big"), value: "col-3" }
-      ]
+      movieCaseWidth: null,
+      moviePosterSizes: [],
+      filter: null,
+      filters: [],
     };
   },
   mounted() {
     this.loadMovies();
+    this.reloadSelectComponents();
+    this.$root.$on("languageChange", this.reloadSelectComponents);
   },
   methods: {
     refreshMovie(updatedMovie) {
@@ -101,7 +110,7 @@ export default {
     },
     loadMovies() {
       console.log("loading");
-      movieDatabase.loadAllMovies().then(movies => {
+      movieDatabase.loadAllMovies().then((movies) => {
         console.log(movies);
         this.movies = movies;
       });
@@ -112,7 +121,7 @@ export default {
         const title = event.target.value.trim();
         movieDatabase
           .searchMovie(title)
-          .then(movies => {
+          .then((movies) => {
             this.movies = movies;
           })
           .catch(console.error);
@@ -123,13 +132,45 @@ export default {
       this.showEditor = true;
 
       this.findMovieIndex(movie.id);
-    }
+    },
+    filterMovies(filter) {
+      if (filter === this.$t("movie_library.filter_default")) {
+        this.loadMovies();
+        return;
+      }
+
+      const isViewed = filter === this.$t("common.viewed");
+      movieDatabase
+        .filterMovie(isViewed)
+        .then((filteredMovies) => {
+          this.movies = filteredMovies;
+        })
+        .catch(console.error);
+    },
+    reloadSelectComponents() {
+      this.filter = this.$t("movie_library.filter_default");
+      this.filters = [
+        this.$t("movie_library.filter_default"),
+        this.$t("common.viewed"),
+        this.$t("common.not_viewed"),
+      ];
+
+      this.movieCaseWidth = {
+        label: this.$t("movie_library.poster_sizes.normal"),
+        value: "col-2",
+      };
+      this.moviePosterSizes = [
+        { label: this.$t("movie_library.poster_sizes.small"), value: "col-1" },
+        { label: this.$t("movie_library.poster_sizes.normal"), value: "col-2" },
+        { label: this.$t("movie_library.poster_sizes.big"), value: "col-3" },
+      ];
+    },
   },
   components: {
     Movie,
     BackToTopArrow,
-    MovieEditor
-  }
+    MovieEditor,
+  },
 };
 </script>
 

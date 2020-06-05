@@ -3,7 +3,9 @@
     "cancel": "Cancel",
     "yes": "Yes",
     "ok": "Ok",
-    "add": "Add"
+    "add": "Add",
+    "viewed": "Viewed",
+    "not_viewed": "Not viewed"
   },
   "movie_library": {
     "search": "Search in Rmdb",
@@ -13,7 +15,9 @@
       "small": "Small",
       "normal": "Normal",
       "big": "Big"
-    }
+    },
+    "filter": "Filter",
+    "filter_default": "Select a filter"
   },
   "movie_add": {
     "search": "Write the movie title to search",
@@ -47,9 +51,7 @@
     "title": "Title",
     "release_date": "Release date",
     "synopsis": "Synopsis",
-    "file_location": "File location",
-    "viewed": "Viewed",
-    "not_viewed": "Not viewed"
+    "file_location": "File location"
   },
   "languages": {
     "en": "English",
