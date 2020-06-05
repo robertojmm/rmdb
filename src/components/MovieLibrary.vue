@@ -86,7 +86,6 @@ export default {
   },
   mounted() {
     this.loadMovies();
-    console.log(this.$t("movie_library"));
   },
   methods: {
     refreshMovie(updatedMovie) {
