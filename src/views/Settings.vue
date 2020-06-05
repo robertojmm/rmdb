@@ -1,16 +1,12 @@
 <template>
-  <div class="q-pa-md" style="max-width: 500px">
+  <div class="fixed-center q-pa-md" style="max-width: 700px; min-width: 700px">
     <q-list>
       <q-item>
         <q-item-section>
           <q-item-label>{{ $t("settings.language") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-select
-            v-model="actualLanguage"
-            :options="languages"
-            @input="changeLanguage"
-          />
+          <q-select v-model="actualLanguage" :options="languages" @input="changeLanguage" />
         </q-item-section>
       </q-item>
 
@@ -56,7 +52,7 @@
             <q-toggle color="blue" v-model="visible" val="battery" />
           </q-item-section>
         </q-item>
-      </q-expansion-item> -->
+      </q-expansion-item>-->
     </q-list>
   </div>
 </template>
@@ -70,7 +66,7 @@ export default {
     return {
       visible: false,
       actualLanguage: null,
-      languages: [],
+      languages: []
     };
   },
   mounted() {
@@ -84,7 +80,7 @@ export default {
       for (const [languageValue, languageName] of languages) {
         const languageOption = {
           label: languageName,
-          value: languageValue,
+          value: languageValue
         };
 
         this.languages.push(languageOption);
@@ -101,8 +97,8 @@ export default {
       settings.set("language", language.value);
       this.loadLanguages();
       this.$root.$emit("languageChange");
-    },
-  },
+    }
+  }
 };
 </script>
 
