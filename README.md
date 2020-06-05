@@ -37,7 +37,7 @@
   - [ ] Option to rate movie
   - [ ] Default image if image can't be found in folder
 * [x] Search movie
-  - [ ] Search also using director's name
+  - [x] Search also using director's name
 * To Improve:
 
   - [x] Allow multiple movies in same row when poster is getting shrinked
