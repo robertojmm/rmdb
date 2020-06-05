@@ -51,7 +51,8 @@
     "title": "Titulo",
     "release_date": "Fecha de estreno",
     "synopsis": "Sinopsis",
-    "file_location": "Ubicación del archivo"
+    "file_location": "Ubicación del archivo",
+    "director": "Director"
   },
   "languages": {
     "en": "Inglés",

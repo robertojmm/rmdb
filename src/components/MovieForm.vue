@@ -42,6 +42,14 @@
           />
         </div>
         <div class="col-4">
+          <q-input
+            outlined
+            v-model="movie.director"
+            :label="$t('movie_form.director')"
+            :readonly="readonly"
+          ></q-input>
+        </div>
+        <div class="col-12">
           <q-toggle
             :false-value="$t('common.not_viewed')"
             :label="`${isViewed}`"

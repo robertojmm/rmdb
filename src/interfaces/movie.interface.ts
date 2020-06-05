@@ -9,6 +9,7 @@ interface Movie {
   releaseDate: string; // Change to object?
   filePath?: string;
   viewed: boolean;
+  director: string;
 }
 
 export default Movie;

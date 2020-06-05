@@ -37,6 +37,8 @@ class TheMovieDBExtractor implements Extractor {
               return response.data.posters[0].file_path;
             });
 
+          const director = await this.getDirector(actual.id);
+
           const movie: Movie = {
             id: actual.id,
             title: actual.title,
@@ -47,6 +49,7 @@ class TheMovieDBExtractor implements Extractor {
             }, //actual.backdrop_path,
             releaseDate: actual.release_date,
             viewed: false,
+            director: director,
           };
 
           if (!poster) movie.posterUrl.big = "/not-found.png";
@@ -56,6 +59,18 @@ class TheMovieDBExtractor implements Extractor {
         return newMovies;
       })
       .catch(console.log);
+  }
+
+  async getDirector(movieId: number): Promise<string> {
+    const url = `${this.apiBaseUrl}movie/${movieId}/credits?api_key=${this.apiKey}`;
+    return axios.get(url).then((response) => {
+      const crew = response.data.crew;
+      let director = undefined;
+      if (crew.length > 0) {
+        director = crew.find((employee: any) => employee.job === "Director");
+      }
+      return director ? director.name : "Unknown";
+    });
   }
 
   stringifyParams(): string {

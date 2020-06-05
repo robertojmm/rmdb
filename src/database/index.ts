@@ -61,6 +61,7 @@ class MovieDataBase {
         filePath: row.file_path,
         viewed: !!row.viewed,
         releaseDate: row.release_date,
+        director: row.director_name,
       };
 
       movies.push(movie);
@@ -100,16 +101,53 @@ class MovieDataBase {
     return posters;
   }
 
+  insertDirector(name: string): Promise<number> {
+    const sql = `INSERT INTO DIRECTORS (NAME) VALUES ($name);`;
+
+    return new Promise((resolve, reject) => {
+      this.db.run(
+        sql,
+        {
+          $name: name,
+        },
+        function(result: any) {
+          if (result instanceof Error) reject(result);
+          resolve(this.lastID);
+        }
+      );
+    });
+  }
+
+  getDirectorId(name: string) {
+    const sql = `SELECT ID FROM DIRECTORS WHERE NAME = $name;`;
+
+    return new Promise((resolve, reject) => {
+      this.db.all(
+        sql,
+        {
+          $name: name,
+        },
+        (error: Error, rows: any) => {
+          if (error) reject(error);
+          rows.length > 0 ? resolve(rows[0].id) : reject(0);
+        }
+      );
+    }).catch(() => {
+      return this.insertDirector(name);
+    });
+  }
+
   async insertMovie(movie: Movie): Promise<null | Error> {
     console.log(movie);
     const sql = `INSERT INTO MOVIES 
     (TITLE, PLOT, RELEASE_DATE, POSTER_PATH, FILE_PATH, VIEWED, DIRECTOR_ID) 
     VALUES ($title, $plot, $releaseDate, $posterPath, $filePath, $viewed, $directorId)`;
 
+    const name = movie.director || "xd"; //TODO remove this
+    const directorId = await this.getDirectorId(name);
+
     const posterExtension = movie.posterUrl.big.split(".").pop();
-
     const posters = await this.getPosters(movie);
-
     const posterName = btoa(movie.title);
     const posterPath = settings.get("directories").posters + "/" + posterName;
 
@@ -138,7 +176,7 @@ class MovieDataBase {
           $posterPath: JSON.stringify(paths),
           $filePath: movie.filePath,
           $viewed: movie.viewed,
-          $directorId: 1,
+          $directorId: directorId,
         },
         (result: any) => {
           if (result instanceof Error) reject(result);
@@ -181,7 +219,8 @@ class MovieDataBase {
   }
 
   loadAllMovies(): Promise<Movie[] | Error> {
-    const sql = `SELECT * FROM MOVIES ORDER BY TITLE`;
+    const sql = `SELECT MOVIES.ID, TITLE, PLOT, RELEASE_DATE, POSTER_PATH, FILE_PATH, VIEWED, DIRECTORS.NAME AS director_name 
+    FROM MOVIES INNER JOIN DIRECTORS ON DIRECTORS.ID = MOVIES.DIRECTOR_ID ORDER BY TITLE;`;
 
     return new Promise((resolve, reject) => {
       this.db.all(sql, (error: Error, rows: any) => {
@@ -196,7 +235,9 @@ class MovieDataBase {
 
   searchMovie(title: string): Promise<any> | Error {
     return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM MOVIES WHERE TITLE LIKE $title ORDER BY title ASC`;
+      const sql = `SELECT MOVIES.ID, TITLE, PLOT, RELEASE_DATE, POSTER_PATH, FILE_PATH, VIEWED, DIRECTORS.NAME AS director_name 
+      FROM MOVIES INNER JOIN DIRECTORS ON DIRECTORS.ID = MOVIES.DIRECTOR_ID
+       WHERE TITLE LIKE $title ORDER BY TITLE ASC`;
 
       this.db.all(
         sql,

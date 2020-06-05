@@ -51,7 +51,8 @@
     "title": "Title",
     "release_date": "Release date",
     "synopsis": "Synopsis",
-    "file_location": "File location"
+    "file_location": "File location",
+    "director": "Director"
   },
   "languages": {
     "en": "English",
