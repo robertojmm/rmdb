@@ -16,7 +16,7 @@
 
   - [ ] Allow pages
   - [x] Auto Update movie library when new movie is added
-  - [ ] Manual input
+  - [x] Manual input
 
 - Library
 
@@ -26,6 +26,7 @@
 * [x] Create movie editor
   - [x] Allow editing/saving changes
     - [x] Update movie component in library when it's updated
+    - [ ] Update movie poster if it has changed
   - [x] Delete movie btn
     - [x] Close Editor
     - [x] Refresh movie list (try to just delete Movie Component)
