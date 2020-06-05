@@ -254,7 +254,9 @@ class MovieDataBase {
 
   filterMovie(viewed: boolean): Promise<any> | Error {
     return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM MOVIES WHERE VIEWED = $viewed ORDER BY title ASC`;
+      const sql = `SELECT MOVIES.ID, TITLE, PLOT, RELEASE_DATE, POSTER_PATH, FILE_PATH, VIEWED, DIRECTORS.NAME AS director_name 
+      FROM MOVIES INNER JOIN DIRECTORS ON DIRECTORS.ID = MOVIES.DIRECTOR_ID
+       WHERE VIEWED = $viewed ORDER BY title ASC`;
 
       this.db.all(
         sql,
