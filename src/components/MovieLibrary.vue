@@ -13,7 +13,7 @@
           </template>
         </q-input>
       </div>
-      <div class="col-2">
+      <div class="col-3">
         <!-- <q-slider v-model="movieCaseWidth" :min="50" :max="100" /> -->
         <q-select
           filled
@@ -26,7 +26,7 @@
           $t("movie_library.total_movies", { amount: movies.length })
         }}</q-badge>
       </div>
-      <div class="col-2">
+      <div class="col-3">
         <q-select
           filled
           :label="this.$t('movie_library.filter')"
@@ -36,7 +36,7 @@
           @input="filterMovies"
         />
       </div>
-      <div class="col-1">
+      <div class="col-2">
         <q-btn color="secondary" icon="cached" @click="loadMovies" />
       </div>
     </div>
