@@ -118,7 +118,10 @@ export default {
     saveMovie() {
       movieDatabase
         .insertMovie(this.actualMovie)
-        .then(this.showDialog)
+        .then((result) => {
+          this.showDialog(result);
+          this.$root.$emit("movieAdded");
+        })
         .catch(this.showDialog);
     },
     showDialog(result) {
