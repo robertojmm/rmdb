@@ -18,7 +18,7 @@
 
 * [x] Enable library cache
 * [x] Add 'viewed or not viewed' to movies and also to the editor (toggle)
-* [ ] Filter movies by 'viewed or not viewed'
+* [x] Filter movies by 'viewed or not viewed'
 * [x] Create movie editor
   - [x] Allow editing/saving changes
     - [x] Update movie component in library when it's updated
