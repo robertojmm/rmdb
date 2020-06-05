@@ -6,6 +6,7 @@
           :label="$t('movie_add.search')"
           @keyup="performSearch"
           ref="searchInput"
+          :disable="disableSearchInput"
         />
       </div>
       <div class="col-2">
@@ -15,6 +16,7 @@
           v-model="actualExtractor"
           :options="extractors"
           style="width: 250px"
+          @input="changeParser"
         />
       </div>
     </div>
@@ -50,9 +52,9 @@
           <div class="text-h6">{{ this.dialog.title }}</div>
         </q-card-section>
 
-        <q-card-section class="q-pt-none">
-          {{ this.dialog.message }}
-        </q-card-section>
+        <q-card-section class="q-pt-none">{{
+          this.dialog.message
+        }}</q-card-section>
 
         <q-card-actions align="right">
           <q-btn flat label="OK" color="primary" v-close-popup />
@@ -92,6 +94,7 @@ export default {
         title: "",
         message: "",
       },
+      disableSearchInput: false,
     };
   },
   methods: {
@@ -137,11 +140,37 @@ export default {
         this.$refs.saveButton.$el.disabled = true;
       }
     },
+    changeParser(parserName) {
+      if (parserName === "Manual") {
+        this.loadEmptyMovie();
+        this.disableSearchInput = true;
+      } else {
+        this.disableSearchInput = false;
+        this.showForm = false;
+      }
+    },
+    loadEmptyMovie() {
+      const movie = {
+        id: 1,
+        title: "",
+        plot: "",
+        posterUrl: {
+          normal: "/not-found.png",
+          big: "/not-found.png",
+        },
+        releaseDate: "1970/01/01",
+        filePath: "",
+        viewed: false,
+        director: "",
+      };
+
+      this.loadMovieIntoForm(movie);
+    },
   },
   mounted() {
     this.$refs.searchInput.$el.focus();
 
-    this.extractors = Object.keys(extractorsList);
+    this.extractors = ["Manual", ...Object.keys(extractorsList)];
     this.actualExtractor = settings.get("extractor");
   },
 };
