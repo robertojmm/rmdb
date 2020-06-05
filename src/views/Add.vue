@@ -158,7 +158,7 @@ export default {
           normal: "/not-found.png",
           big: "/not-found.png",
         },
-        releaseDate: "1970/01/01",
+        releaseDate: "1970-01-01",
         filePath: "",
         viewed: false,
         director: "",

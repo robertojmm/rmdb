@@ -64,7 +64,18 @@
     </div>
 
     <div class="col-4">
-      <q-img class="rounded-borders" :src="movie.posterUrl.big" width="95%" />
+      <q-img
+        class="rounded-borders clickable"
+        :src="movie.posterUrl.big"
+        width="95%"
+        @click="openFilePicker"
+      />
+      <input
+        type="file"
+        @change="loadNewPoster"
+        ref="filePicker"
+        :hidden="true"
+      />
     </div>
   </div>
 </template>
@@ -98,8 +109,19 @@ export default {
     setViewedState(state) {
       this.movie.viewed = state === this.viewed;
     },
+    loadNewPoster(event) {
+      const file = event.target.files[0];
+      this.movie.posterUrl.big = URL.createObjectURL(file);
+    },
+    openFilePicker() {
+      this.$refs.filePicker.click();
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.clickable {
+  cursor: pointer;
+}
+</style>

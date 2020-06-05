@@ -145,7 +145,7 @@ class MovieDataBase {
 
     const directorId = await this.getDirectorId(movie.director);
 
-    const posterExtension = movie.posterUrl.big.split(".").pop();
+    const posterExtension = "jpg"; //movie.posterUrl.big.split(".").pop();
     const posters = await this.getPosters(movie);
     const posterName = btoa(movie.title);
     const posterPath = settings.get("directories").posters + "/" + posterName;
