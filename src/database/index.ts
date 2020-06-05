@@ -143,8 +143,7 @@ class MovieDataBase {
     (TITLE, PLOT, RELEASE_DATE, POSTER_PATH, FILE_PATH, VIEWED, DIRECTOR_ID) 
     VALUES ($title, $plot, $releaseDate, $posterPath, $filePath, $viewed, $directorId)`;
 
-    const name = movie.director || "xd"; //TODO remove this
-    const directorId = await this.getDirectorId(name);
+    const directorId = await this.getDirectorId(movie.director);
 
     const posterExtension = movie.posterUrl.big.split(".").pop();
     const posters = await this.getPosters(movie);
@@ -246,9 +245,29 @@ class MovieDataBase {
         },
         (error: Error, rows: any) => {
           if (error) reject(error);
-          resolve(this.rowsToMovieObjects(rows));
+
+          rows.length > 0 ? resolve(this.rowsToMovieObjects(rows)) : reject();
         }
       );
+    }).catch((error) => {
+      return new Promise((resolve, reject) => {
+        if (error) reject(error);
+
+        const sql = `SELECT MOVIES.ID, TITLE, PLOT, RELEASE_DATE, POSTER_PATH, FILE_PATH, VIEWED, DIRECTORS.NAME AS director_name 
+        FROM MOVIES INNER JOIN DIRECTORS ON DIRECTORS.ID = MOVIES.DIRECTOR_ID
+         WHERE DIRECTORS.NAME LIKE $name ORDER BY TITLE ASC`;
+
+        this.db.all(
+          sql,
+          {
+            $name: "%" + title + "%",
+          },
+          (error: Error, rows: any) => {
+            if (error) reject(error);
+            resolve(this.rowsToMovieObjects(rows));
+          }
+        );
+      });
     });
   }
 
@@ -274,8 +293,6 @@ class MovieDataBase {
   deleteMovie(movie: Movie): Promise<any> {
     const sql = `DELETE FROM MOVIES WHERE ID = $id`;
     const sqlSearchPoster = `SELECT POSTER_PATH FROM MOVIES WHERE ID = $id`;
-
-    // TODO Improve?
 
     return new Promise((resolve, reject) => {
       this.db.all(
