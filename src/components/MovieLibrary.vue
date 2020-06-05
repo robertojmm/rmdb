@@ -130,8 +130,6 @@ export default {
     openMovieForm(movie) {
       this.actualMovie = movie;
       this.showEditor = true;
-
-      this.findMovieIndex(movie.id);
     },
     filterMovies(filter) {
       if (filter === this.$t("movie_library.filter_default")) {
