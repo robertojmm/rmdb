@@ -32,9 +32,9 @@
     - [x] Refresh movie list (try to just delete Movie Component)
     - [x] Confirm popup !!!!
   - [x] Play Movie
-    - [ ] Throw Exception if file not found
+    - [ ] Throw Exception if file not found ???
   - [x] Open Location
-    - [ ] Throw Exception if folder not found
+    - [ ] Throw Exception if folder not found ???
   - [ ] Option to rate movie
   - [ ] Default image if image can't be found in folder
 * [x] Search movie
@@ -45,6 +45,7 @@
   - [x] Change database script to Class
   - [ ] Change name from "extractor" to "parser"
   - [x] Set min windows size
+  - [ ] Set lang="ts" in all vue files
 
 * Think if this is really necessary:
 
