@@ -18,7 +18,7 @@
       :width="200"
       :breakpoint="500"
       bordered
-      content-class="bg-grey-3"
+      content-class="drawer-color"
     >
       <q-scroll-area class="fit">
         <q-list padding>
@@ -62,7 +62,6 @@
     </q-drawer>
 
     <q-page-container>
-      <!-- Is this legal?? (Cache) -->
       <keep-alive>
         <router-view />
       </keep-alive>
@@ -80,3 +79,11 @@ export default {
   },
 };
 </script>
+
+<style lang="sass">
+body, .bg-custom
+  background: var(--q-color-background);
+
+.drawer-color
+  background: var(--q-color-drawer)
+</style>

@@ -39,7 +39,7 @@
       </q-header>
 
       <q-page-container>
-        <q-page class="no-overflow">
+        <q-page class="no-overflow bg-custom">
           <movieForm :movie="updatedMovie" :readonly="editBlocked" />
 
           <q-dialog v-model="confirmRemoveMovie" persistent>

@@ -6,7 +6,11 @@
           <q-item-label>{{ $t("settings.language") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-select v-model="actualLanguage" :options="languages" @input="changeLanguage" />
+          <q-select
+            v-model="actualLanguage"
+            :options="languages"
+            @input="changeLanguage"
+          />
         </q-item-section>
       </q-item>
 
@@ -28,7 +32,11 @@
           <q-item-label>{{ $t("settings.theme") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-btn label="CLEAN" color="negative"></q-btn>
+          <q-select
+            v-model="actualTheme"
+            :options="themes"
+            @input="changeTheme"
+          />
         </q-item-section>
       </q-item>
 
@@ -59,6 +67,8 @@
 
 <script>
 import { settings } from "@/settings";
+import { colors } from "quasar";
+import Themes from "@/themes";
 
 export default {
   name: "SettingsView",
@@ -66,11 +76,15 @@ export default {
     return {
       visible: false,
       actualLanguage: null,
-      languages: []
+      languages: [],
+      actualTheme: null,
+      themes: [],
     };
   },
   mounted() {
     this.loadLanguages();
+    this.loadThemes();
+    console.log(colors);
   },
   methods: {
     loadLanguages() {
@@ -80,7 +94,7 @@ export default {
       for (const [languageValue, languageName] of languages) {
         const languageOption = {
           label: languageName,
-          value: languageValue
+          value: languageValue,
         };
 
         this.languages.push(languageOption);
@@ -97,8 +111,28 @@ export default {
       settings.set("language", language.value);
       this.loadLanguages();
       this.$root.$emit("languageChange");
-    }
-  }
+    },
+    loadThemes() {
+      const themes = Object.entries(Themes);
+
+      for (const [name, colors] of themes) {
+        const theme = {
+          label: name,
+          value: colors,
+        };
+
+        this.themes.push(theme);
+        this.actualTheme = theme;
+      }
+    },
+    changeTheme(theme) {
+      console.log(theme);
+
+      for (const [label, color] of Object.entries(theme.value)) {
+        colors.setBrand(label, color);
+      }
+    },
+  },
 };
 </script>
 
