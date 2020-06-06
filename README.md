@@ -4,6 +4,10 @@
 
 - General
 
+  - [ ] Themes
+
+    - [ ] Change color
+
   - [ ] Component 'changeSettingPath' INPUT that has an \$emit event which sends the new value to the father (use it on movieForm and in settings)
   - [ ] Clean parsers
   - [ ] Clean database class (???)
