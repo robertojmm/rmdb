@@ -65,10 +65,11 @@
 
     <div class="col-4">
       <q-img
-        class="rounded-borders clickable"
+        class="rounded-borders"
+        :class="{ clickable: !readonly, 'not-clickable': readonly }"
         :src="movie.posterUrl.big"
         width="95%"
-        @click="openFilePicker"
+        @click="!readonly && openFilePicker()"
       />
       <input
         type="file"
@@ -111,7 +112,11 @@ export default {
     },
     loadNewPoster(event) {
       const file = event.target.files[0];
-      this.movie.posterUrl.big = URL.createObjectURL(file);
+      const url = URL.createObjectURL(file);
+      this.movie.posterUrl = {
+        big: url,
+        normal: url,
+      };
     },
     openFilePicker() {
       this.$refs.filePicker.click();
@@ -123,5 +128,8 @@ export default {
 <style scoped>
 .clickable {
   cursor: pointer;
+}
+.not-clickable {
+  cursor: not-allowed;
 }
 </style>

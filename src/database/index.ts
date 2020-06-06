@@ -5,6 +5,7 @@ import Movie from "@/interfaces/movie.interface";
 import fs from "fs";
 import sharp from "sharp";
 import { remote } from "electron";
+import MovieParams from "@/interfaces/movieParams.interface";
 sqlite3.verbose();
 
 class MovieDataBase {
@@ -137,14 +138,9 @@ class MovieDataBase {
     });
   }
 
-  async insertMovie(movie: Movie): Promise<null | Error> {
-    console.log(movie);
-    const sql = `INSERT INTO MOVIES 
-    (TITLE, PLOT, RELEASE_DATE, POSTER_PATH, FILE_PATH, VIEWED, DIRECTOR_ID) 
-    VALUES ($title, $plot, $releaseDate, $posterPath, $filePath, $viewed, $directorId)`;
-
-    const directorId = await this.getDirectorId(movie.director);
-
+  async writePosterFiles(
+    movie: Movie
+  ): Promise<{ big: string; normal: string }> {
     const posterExtension = "jpg"; //movie.posterUrl.big.split(".").pop();
     const posters = await this.getPosters(movie);
     const posterName = btoa(movie.title);
@@ -154,6 +150,7 @@ class MovieDataBase {
       normal: posterPath + "_md." + posterExtension,
       big: posterPath + "_xl." + posterExtension,
     };
+    console.log(posters);
 
     fs.writeFile(paths.big, posters.big, "binary", (err: any) => {
       if (err) throw err;
@@ -162,6 +159,46 @@ class MovieDataBase {
     fs.writeFile(paths.normal, posters.normal, "binary", (err: any) => {
       if (err) throw err;
     });
+
+    return paths;
+  }
+
+  deletePosterFiles(movieId: number | string): Promise<any> {
+    const sqlSearchPoster = `SELECT POSTER_PATH FROM MOVIES WHERE ID = $id`;
+
+    return new Promise((resolve, reject) => {
+      this.db.all(
+        sqlSearchPoster,
+        {
+          $id: movieId,
+        },
+        (error: Error, rows: any) => {
+          if (error) reject(error);
+          resolve(rows);
+        }
+      );
+    }).then((rows: any) => {
+      const posterPaths = JSON.parse(rows[0].poster_path);
+      const posters: string[] = Object.values(posterPaths);
+
+      for (const poster of posters) {
+        console.log(poster);
+        fs.unlink(poster, (error) => {
+          if (error) console.log(error);
+        });
+      }
+    });
+  }
+
+  async insertMovie(movie: Movie): Promise<null | Error> {
+    console.log(movie);
+    const sql = `INSERT INTO MOVIES 
+    (TITLE, PLOT, RELEASE_DATE, POSTER_PATH, FILE_PATH, VIEWED, DIRECTOR_ID) 
+    VALUES ($title, $plot, $releaseDate, $posterPath, $filePath, $viewed, $directorId)`;
+
+    const directorId = await this.getDirectorId(movie.director);
+
+    const paths = await this.writePosterFiles(movie);
 
     if (!movie.filePath) movie.filePath = "";
 
@@ -185,9 +222,8 @@ class MovieDataBase {
     });
   }
 
-  async updateMovie(movie: Movie): Promise<any> {
-    console.log(movie);
-    const sql = `UPDATE MOVIES SET
+  async updateMovie(movie: Movie, posterUpdated: boolean): Promise<any> {
+    let sql = `UPDATE MOVIES SET
     TITLE = $title,
     PLOT = $plot,
     RELEASE_DATE = $releaseDate,
@@ -196,24 +232,38 @@ class MovieDataBase {
     DIRECTOR_ID = $directorId
     WHERE ID = $id`;
 
+    const params: MovieParams = {
+      $title: movie.title,
+      $plot: movie.plot,
+      $releaseDate: movie.releaseDate,
+      $filePath: movie.filePath,
+      $viewed: movie.viewed,
+      $directorId: 1,
+      $id: movie.id,
+    };
+
+    if (posterUpdated) {
+      sql = `UPDATE MOVIES SET
+      TITLE = $title,
+      PLOT = $plot,
+      RELEASE_DATE = $releaseDate,
+      POSTER_PATH = $posterPath,
+      FILE_PATH = $filePath,
+      VIEWED = $viewed,
+      DIRECTOR_ID = $directorId
+      WHERE ID = $id`;
+
+      this.deletePosterFiles(movie.id);
+      const paths = await this.writePosterFiles(movie);
+
+      params.$posterPath = JSON.stringify(paths);
+    }
+
     return new Promise((resolve, reject) => {
-      this.db.run(
-        sql,
-        {
-          $title: movie.title,
-          $plot: movie.plot,
-          $releaseDate: movie.releaseDate,
-          //$posterPath: posterPath,
-          $filePath: movie.filePath,
-          $viewed: movie.viewed,
-          $directorId: 1,
-          $id: movie.id,
-        },
-        (result: any) => {
-          if (result instanceof Error) reject(result);
-          resolve(result);
-        }
-      );
+      this.db.run(sql, params, (result: any) => {
+        if (result instanceof Error) reject(result);
+        resolve(result);
+      });
     });
   }
 
@@ -292,45 +342,21 @@ class MovieDataBase {
 
   deleteMovie(movie: Movie): Promise<any> {
     const sql = `DELETE FROM MOVIES WHERE ID = $id`;
-    const sqlSearchPoster = `SELECT POSTER_PATH FROM MOVIES WHERE ID = $id`;
 
-    return new Promise((resolve, reject) => {
-      this.db.all(
-        sqlSearchPoster,
-        {
-          $id: movie.id,
-        },
-        (error: Error, rows: any) => {
-          if (error) reject(error);
-          resolve(rows);
-        }
-      );
-    })
-      .then((rows: any) => {
-        const posterPath = JSON.parse(rows[0].poster_path);
-
-        fs.unlink(posterPath.normal, (error) => {
-          if (error) console.log(error);
-        });
-
-        fs.unlink(posterPath.big, (error) => {
-          if (error) console.log(error);
-        });
-      })
-      .then(() => {
-        return new Promise((resolve, reject) => {
-          this.db.run(
-            sql,
-            {
-              $id: movie.id,
-            },
-            (result: any) => {
-              if (result instanceof Error) reject(result);
-              resolve();
-            }
-          );
-        });
+    return this.deletePosterFiles(movie.id).then(() => {
+      return new Promise((resolve, reject) => {
+        this.db.run(
+          sql,
+          {
+            $id: movie.id,
+          },
+          (result: any) => {
+            if (result instanceof Error) reject(result);
+            resolve();
+          }
+        );
       });
+    });
   }
 }
 

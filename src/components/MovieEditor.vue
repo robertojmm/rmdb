@@ -3,32 +3,34 @@
     <q-layout view="hHh lpR fFf" container class="layout bg-white">
       <q-header elevated class="bg-primary text-white">
         <q-toolbar class="toolbar">
-          <q-btn flat icon="play_arrow" @click="playMovie" :disable="!hasFileAssociated">
+          <q-btn
+            flat
+            icon="play_arrow"
+            @click="playMovie"
+            :disable="!hasFileAssociated"
+          >
             <q-tooltip :delay="btnDelay" content-class="bg-accent">
-              {{
-              $t("movie_editor.play_btn")
-              }}
+              {{ $t("movie_editor.play_btn") }}
             </q-tooltip>
           </q-btn>
           <q-btn flat icon="edit" @click="editBlocked = !editBlocked">
             <q-tooltip :delay="btnDelay" content-class="bg-accent">
-              {{
-              $t("movie_editor.edit_btn")
-              }}
+              {{ $t("movie_editor.edit_btn") }}
             </q-tooltip>
           </q-btn>
           <q-btn flat icon="delete" @click="confirmRemoveMovie = true">
             <q-tooltip :delay="btnDelay" content-class="bg-accent">
-              {{
-              $t("movie_editor.delete_btn")
-              }}
+              {{ $t("movie_editor.delete_btn") }}
             </q-tooltip>
           </q-btn>
-          <q-btn flat icon="folder" @click="openMovieFolder" :disable="!hasFileAssociated">
+          <q-btn
+            flat
+            icon="folder"
+            @click="openMovieFolder"
+            :disable="!hasFileAssociated"
+          >
             <q-tooltip :delay="btnDelay" content-class="bg-accent">
-              {{
-              $t("movie_editor.open_location")
-              }}
+              {{ $t("movie_editor.open_location") }}
             </q-tooltip>
           </q-btn>
           <q-space />
@@ -43,14 +45,26 @@
           <q-dialog v-model="confirmRemoveMovie" persistent>
             <q-card>
               <q-card-section class="row items-center">
-                <span
-                  class="q-ml-sm"
-                >{{ $t("movie_editor.delete_dialog", { title: updatedMovie.title }) }}</span>
+                <span class="q-ml-sm">{{
+                  $t("movie_editor.delete_dialog", {
+                    title: updatedMovie.title,
+                  })
+                }}</span>
               </q-card-section>
 
               <q-card-actions align="right">
-                <q-btn flat :label="$t('common.ok')" color="negative" @click="removeMovie" />
-                <q-btn flat :label="$t('common.cancel')" color="primary" v-close-popup />
+                <q-btn
+                  flat
+                  :label="$t('common.ok')"
+                  color="negative"
+                  @click="removeMovie"
+                />
+                <q-btn
+                  flat
+                  :label="$t('common.cancel')"
+                  color="primary"
+                  v-close-popup
+                />
               </q-card-actions>
             </q-card>
           </q-dialog>
@@ -66,7 +80,8 @@
               content-class="bg-accent"
               anchor="center left"
               self="center right"
-            >{{ $t("movie_editor.save_btn") }}</q-tooltip>
+              >{{ $t("movie_editor.save_btn") }}</q-tooltip
+            >
           </q-btn>
         </q-toolbar>
       </q-footer>
@@ -89,11 +104,12 @@ export default {
       editBlocked: true,
       hasFileAssociated: false,
       confirmRemoveMovie: false,
-      btnDelay: 1000
+      btnDelay: 1000,
     };
   },
   mounted() {
     this.updatedMovie = { ...this.movie };
+    this.updatedMovie.posterUrl = { ...this.updatedMovie.posterUrl };
 
     this.hasFileAssociated = this.updatedMovie.filePath !== "";
   },
@@ -121,7 +137,10 @@ export default {
     },
     updateMovie() {
       movieDatabase
-        .updateMovie(this.updatedMovie)
+        .updateMovie(
+          this.updatedMovie,
+          this.movie.posterUrl.big !== this.updatedMovie.posterUrl.big
+        )
         .then(() => {
           //Finish this
           this.$emit("update", this.updatedMovie);
@@ -131,14 +150,14 @@ export default {
 
       this.editBlocked = true;
       //TODO show dialogs saying that the movie is updated
-    }
+    },
   },
   props: {
-    movie: Movie
+    movie: Movie,
   },
   components: {
-    MovieForm
-  }
+    MovieForm,
+  },
 };
 </script>
 
