@@ -26,7 +26,8 @@
 * [x] Create movie editor
   - [x] Allow editing/saving changes
     - [x] Update movie component in library when it's updated
-    - [ ] Update movie poster if it has changed
+    - [x] Update movie poster if it has changed
+    - [ ] Update director
   - [x] Delete movie btn
     - [x] Close Editor
     - [x] Refresh movie list (try to just delete Movie Component)
