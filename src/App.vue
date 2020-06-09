@@ -82,8 +82,9 @@ export default {
 
 <style lang="scss">
 body,
-.bg-custom {
-  background: var(--q-color-background);
+.bg-custom,
+.q-card {
+  background: var(--q-color-background) !important;
 }
 
 .q-field__native + .q-field__label,
