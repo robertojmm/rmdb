@@ -1,0 +1,57 @@
+{
+  "default": {
+    "primary": "#027BE3",
+    "secondary": "#26A69A",
+    "accent": "#9C27B0",
+    "background": "#FFFFFF",
+    "drawer": "#EEEEEE",
+    "placeholder": "#027BE3",
+    "text": "#000000",
+    "title": "#FFFFFF",
+    "icons": "#000000"
+  },
+  "tropicalForest": {
+    "primary": "#364958",
+    "secondary": "#3B6064",
+    "accent": "#55828B",
+    "background": "#C9E4CA",
+    "drawer": "#87BBA2",
+    "placeholder": "#364958",
+    "text": "#000000",
+    "title": "#FFFFFF",
+    "icons": "#000000"
+  },
+  "rubenTheme": {
+    "primary": "#D17523",
+    "secondary": "#E08E45",
+    "accent": "#6B2737",
+    "background": "#F8F4A6",
+    "drawer": "#E08E45",
+    "placeholder": "#D17523",
+    "text": "#000000",
+    "title": "#FFFFFF",
+    "icons": "#000000"
+  },
+  "alexTheme": {
+    "primary": "#A30026",
+    "secondary": "#A30026",
+    "accent": "#8D99AE",
+    "background": "#EDF2F4",
+    "drawer": "#2B2D42",
+    "placeholder": "#A30026",
+    "text": "#000000",
+    "title": "#FFFFFF",
+    "icons": "#FFFFFF"
+  },
+  "dark": {
+    "primary": "#26353E",
+    "secondary": "#2F353B",
+    "accent": "#58626B",
+    "background": "#15202b",
+    "drawer": "#35454F",
+    "placeholder": "#FFFFFF",
+    "text": "#FFFFFF",
+    "title": "#FFFFFF",
+    "icons": "#FFFFFF"
+  }
+}
