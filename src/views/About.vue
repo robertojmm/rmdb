@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md" style="max-width: 500px">About page</div>
+  <div class="fixed-center q-pa-md" style="max-width: 500px">About page</div>
 </template>
 
 <script>
