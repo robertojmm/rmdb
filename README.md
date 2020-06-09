@@ -6,7 +6,8 @@
 
   - [ ] Themes
 
-    - [ ] Change color
+    - [x] Change color
+    - [ ] Change colors of cards and dialogs
 
   - [ ] Component 'changeSettingPath' INPUT that has an \$emit event which sends the new value to the father (use it on movieForm and in settings)
   - [ ] Clean parsers
@@ -69,25 +70,3 @@
 ## What is this?
 
 Rmdb is a free open-source app to store all your movies and have a track about them
-
-# Recomendaciones de Carlos:
-
-- [x] Paquete RIP para hacer los posters de las películas (https://github.com/MarcusCemes/responsive-image-builder). Formato webp. Ajustar el tamaño de los posters en función de la pantalla del usuario
-
-<picture>
-  <source src="assets/image_xs.webp">
- <source src="assets/image_xs.png">
-</picture>
-
-<source media="min XXX & max XX" src="assets/image_xs.webp">
-
-- [x] Cambiar componentes en los html a minuscula
-
-* Preguntar a Carlos:
-  - Cambiar letras en los botones por tooltips (hacerlo)
-  - Quitar los colores de los botones (hacerlo)
-  - Dejar todos los botones como si fueran uno (mismo fondo)
-
-Cambiar extractors a parsers
-Idioma
-Customizar colores (Paletas) (variables CSS) (--primary) (de cara al final del desarrollo)
