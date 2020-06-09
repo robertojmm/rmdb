@@ -44,6 +44,20 @@
 
       <q-item>
         <q-item-section>
+          <q-btn
+            label="EXPORT"
+            color="primary"
+            @click="exportDatabase"
+          ></q-btn> </q-item-section
+        ><q-item-section>
+          <q-btn label="IMPORT" color="primary" @click="importDatabase"></q-btn>
+        </q-item-section>
+      </q-item>
+
+      <q-separator spaced inset />
+
+      <q-item>
+        <q-item-section>
           <q-item-label>{{ $t("settings.clean_db") }}</q-item-label>
         </q-item-section>
         <q-item-section>
@@ -56,21 +70,18 @@
       </q-item>
 
       <confirmDialog
-        :dialogOpen.sync="dialogOpen"
+        :dialogOpen.sync="confirmDialogOpen"
         title="Wanna clean database?"
         :callBack="cleanDatabase"
       ></confirmDialog>
 
-      <!-- <q-expansion-item expand-separator icon="schedule" label="Postponed">
-        <q-item tag="label" v-ripple :header-inset-level="1.5">
-          <q-item-section>
-            <q-item-label>Battery too low</q-item-label>
-          </q-item-section>
-          <q-item-section side>
-            <q-toggle color="blue" v-model="visible" val="battery" />
-          </q-item-section>
-        </q-item>
-      </q-expansion-item>-->
+      <q-dialog v-model="infoDialogOpen" position="bottom">
+        <q-card style="width: 350px">
+          <q-card-section class="row items-center no-wrap">
+            <span>{{ infoDialogContent }}</span>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
     </q-list>
   </div>
 </template>
@@ -80,6 +91,13 @@ import ConfirmDialog from "@/components/ConfirmDialog";
 import { settings } from "@/settings";
 import { changeTheme } from "@/themes";
 
+import { remote } from "electron";
+import path from "path";
+import AdmZip from "adm-zip";
+
+const dialog = remote.dialog;
+const app = remote.app;
+
 export default {
   name: "SettingsView",
   components: {
@@ -87,11 +105,13 @@ export default {
   },
   data() {
     return {
-      dialogOpen: false,
       actualLanguage: null,
       languages: [],
       actualTheme: null,
       themes: [],
+      confirmDialogOpen: false,
+      infoDialogOpen: false,
+      infoDialogContent: "",
     };
   },
   mounted() {
@@ -147,6 +167,64 @@ export default {
     },
     cleanDatabase() {
       console.log("TODO");
+    },
+    exportDatabase() {
+      dialog
+        .showSaveDialog({
+          defaultPath: path.join(app.getPath("desktop"), "RMDB"),
+        })
+        .then(({ canceled, filePath }) => {
+          if (canceled) {
+            return;
+          }
+
+          this.zipDirectory(settings.get("directories").main, filePath)
+            .then(() => this.showInfoDialog("Database exported successfully"))
+            .catch(console.error);
+        });
+    },
+    importDatabase() {
+      dialog
+        .showOpenDialog({
+          filters: [{ name: "RMDB zip files", extensions: ["zip"] }],
+        })
+        .then(({ canceled, filePaths }) => {
+          if (canceled) {
+            return;
+          }
+
+          const output = path.join(settings.get("directories").main, "..");
+
+          this.unzipFile(filePaths[0], output)
+            .then(() => {
+              this.showInfoDialog("Database imported successfully");
+              this.$root.$emit("reloadMovies");
+            })
+            .catch(console.error);
+        });
+    },
+    zipDirectory(source, out) {
+      return new Promise((resolve) => {
+        const zip = new AdmZip();
+        zip.addLocalFolder(source, "RMDB");
+        zip.writeZip(out + ".zip");
+        resolve();
+      });
+    },
+    unzipFile(source, out) {
+      return new Promise((resolve, reject) => {
+        const zip = new AdmZip(source);
+        zip.extractAllTo(out, true);
+        resolve();
+      });
+    },
+    showInfoDialog(content) {
+      this.infoDialogOpen = true;
+      this.infoDialogContent = content;
+
+      setTimeout(() => {
+        this.infoDialogOpen = false;
+      }, 5000);
     },
   },
 };
