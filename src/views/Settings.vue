@@ -60,7 +60,7 @@
 <script>
 import { settings } from "@/settings";
 import { colors } from "quasar";
-import Themes from "@/themes";
+import { changeTheme } from "@/themes";
 
 export default {
   name: "SettingsView",
@@ -97,8 +97,6 @@ export default {
       }
     },
     changeLanguage(language) {
-      this.actualLanguage = language;
-
       this.$i18n.locale = language.value;
       settings.set("language", language.value);
 
@@ -108,33 +106,24 @@ export default {
     },
     loadThemes() {
       this.themes = [];
-      const themes = Object.entries(Themes);
-      const themesNames = this.$t("themes");
+      const themes = Object.entries(this.$t("themes"));
 
-      for (const [name, colors] of themes) {
+      for (const [code, label] of themes) {
         const themeOption = {
-          label: themesNames[name],
-          value: { themes: colors, code: name }
+          label,
+          value: code
         };
 
         this.themes.push(themeOption);
 
-        if (settings.get("theme") === themeOption.value.code) {
+        if (settings.get("theme") === code) {
           this.actualTheme = themeOption;
         }
       }
     },
     changeTheme(theme) {
-      console.log(theme);
-      const { themes, code } = theme.value;
-
-      for (const [label, color] of Object.entries(themes)) {
-        colors.setBrand(label, color);
-      }
-
-      settings.set("theme", code);
-
-      console.log(code);
+      changeTheme(theme.value);
+      settings.set("theme", theme.value);
     }
   }
 };
