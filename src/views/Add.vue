@@ -123,7 +123,7 @@ export default {
         .insertMovie(this.actualMovie)
         .then((result) => {
           this.showDialog(result);
-          this.$root.$emit("movieAdded");
+          this.$root.$emit("reloadMovies");
         })
         .catch(this.showDialog);
     },

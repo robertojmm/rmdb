@@ -95,7 +95,7 @@ export default {
     this.loadMovies();
     this.reloadSelectComponents();
     this.$root.$on("languageChange", this.reloadSelectComponents);
-    this.$root.$on("movieAdded", this.loadMovies);
+    this.$root.$on("reloadMovies", this.loadMovies);
   },
   methods: {
     refreshMovie(updatedMovie) {
