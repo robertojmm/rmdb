@@ -1,31 +1,66 @@
 const themes = {
-  Default: {
+  default: {
     primary: "#027BE3",
     secondary: "#26A69A",
     accent: "#9C27B0",
     background: "#FFFFFF",
     drawer: "#EEEEEE",
+    placeholder: "#027BE3",
+    text: "#000000",
+    title: "#FFFFFF",
+    icons: "#000000",
   },
-  TropicalForest: {
+  tropicalForest: {
     primary: "#364958",
     secondary: "#3B6064",
     accent: "#55828B",
     background: "#C9E4CA",
     drawer: "#87BBA2",
+    placeholder: "#364958",
+    text: "#000000",
+    title: "#FFFFFF",
+    icons: "#000000",
   },
-  Dark: {
+  /* SandiaFashion: {
+    primary: "#ff3031",
+    secondary: "#007b00",
+    accent: "#d92027",
+    background: "#FFA291",
+    drawer: "#75b855",
+  }, */
+  rubenTheme: {
+    primary: "#D17523",
+    secondary: "#E08E45",
+    accent: "#6B2737",
+    background: "#F8F4A6",
+    drawer: "#E08E45",
+    placeholder: "#D17523",
+    text: "#000000",
+    title: "#FFFFFF",
+    icons: "#000000",
+  },
+  alexTheme: {
+    primary: "#A30026",
+    secondary: "#A30026",
+    accent: "#8D99AE",
+    background: "#EDF2F4",
+    drawer: "#2B2D42",
+    placeholder: "#A30026",
+    text: "#000000",
+    title: "#FFFFFF",
+    icons: "#FFFFFF",
+  },
+  dark: {
     primary: "#26353E",
     secondary: "#2F353B",
     accent: "#58626B",
-    background: "#44555F",
+    background: "#15202b",
     drawer: "#35454F",
+    placeholder: "#FFFFFF",
+    text: "#FFFFFF",
+    title: "#FFFFFF",
+    icons: "#FFFFFF",
   },
 };
 
 export default themes;
-
-/*
-Tropical Forest: https://coolors.co/c9e4ca-87bba2-55828b-3b6064-364958
-Dark: https://coolors.co/413e38-4c4442-58626b-424c54-44555f-35454f-26353e
-
-*/

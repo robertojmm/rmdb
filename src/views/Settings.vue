@@ -6,11 +6,7 @@
           <q-item-label>{{ $t("settings.language") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-select
-            v-model="actualLanguage"
-            :options="languages"
-            @input="changeLanguage"
-          />
+          <q-select v-model="actualLanguage" :options="languages" @input="changeLanguage" />
         </q-item-section>
       </q-item>
 
@@ -32,11 +28,7 @@
           <q-item-label>{{ $t("settings.theme") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-select
-            v-model="actualTheme"
-            :options="themes"
-            @input="changeTheme"
-          />
+          <q-select v-model="actualTheme" :options="themes" @input="changeTheme" />
         </q-item-section>
       </q-item>
 
@@ -78,7 +70,7 @@ export default {
       actualLanguage: null,
       languages: [],
       actualTheme: null,
-      themes: [],
+      themes: []
     };
   },
   mounted() {
@@ -94,7 +86,7 @@ export default {
       for (const [languageValue, languageName] of languages) {
         const languageOption = {
           label: languageName,
-          value: languageValue,
+          value: languageValue
         };
 
         this.languages.push(languageOption);
@@ -109,30 +101,42 @@ export default {
 
       this.$i18n.locale = language.value;
       settings.set("language", language.value);
+
       this.loadLanguages();
+      this.loadThemes();
       this.$root.$emit("languageChange");
     },
     loadThemes() {
+      this.themes = [];
       const themes = Object.entries(Themes);
+      const themesNames = this.$t("themes");
 
       for (const [name, colors] of themes) {
-        const theme = {
-          label: name,
-          value: colors,
+        const themeOption = {
+          label: themesNames[name],
+          value: { themes: colors, code: name }
         };
 
-        this.themes.push(theme);
-        this.actualTheme = theme;
+        this.themes.push(themeOption);
+
+        if (settings.get("theme") === themeOption.value.code) {
+          this.actualTheme = themeOption;
+        }
       }
     },
     changeTheme(theme) {
       console.log(theme);
+      const { themes, code } = theme.value;
 
-      for (const [label, color] of Object.entries(theme.value)) {
+      for (const [label, color] of Object.entries(themes)) {
         colors.setBrand(label, color);
       }
-    },
-  },
+
+      settings.set("theme", code);
+
+      console.log(code);
+    }
+  }
 };
 </script>
 

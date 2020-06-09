@@ -35,9 +35,9 @@
               <q-icon name="list"></q-icon>
             </q-item-section>
 
-            <q-item-section>{{
-              $t("menu_drawer.movie_library")
-            }}</q-item-section>
+            <q-item-section>
+              {{ $t("menu_drawer.movie_library") }}
+            </q-item-section>
           </q-item>
 
           <q-separator></q-separator>
@@ -80,10 +80,40 @@ export default {
 };
 </script>
 
-<style lang="sass">
-body, .bg-custom
+<style lang="scss">
+body,
+.bg-custom {
   background: var(--q-color-background);
+}
 
-.drawer-color
-  background: var(--q-color-drawer)
+.q-field__native + .q-field__label,
+.q-field--focused .q-field__label,
+.q-field__control-container > input::placeholder {
+  color: var(--q-color-placeholder) !important;
+}
+
+span,
+input,
+textarea,
+.q-item__label,
+.q-field__input + div,
+.q-toggle__label {
+  color: var(--q-color-text) !important;
+}
+
+.q-drawer {
+  color: var(--q-color-icons) !important;
+}
+
+.q-toolbar__title {
+  color: var(--q-color-title);
+}
+
+.drawer-color {
+  background: var(--q-color-drawer);
+}
+
+.q-menu {
+  background: var(--q-color-drawer) !important;
+}
 </style>

@@ -16,6 +16,7 @@ const settings = new Store({
       posters: mainDirectory + "/posters",
     },
     language: "en",
+    theme: "default",
     extractor: Extractors.TheMovieDB,
   },
 });

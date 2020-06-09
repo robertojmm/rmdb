@@ -57,5 +57,12 @@
   "languages": {
     "en": "Inglés",
     "es": "Español"
+  },
+  "themes": {
+    "default": "Predeterminado",
+    "tropicalForest": "Bosque tropical",
+    "rubenTheme": "Tema de Ruben",
+    "alexTheme": "Tema de Alex",
+    "dark": "Oscuro"
   }
 }
