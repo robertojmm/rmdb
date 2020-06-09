@@ -360,6 +360,17 @@ class MovieDataBase {
       });
     });
   }
+
+  cleanDatabase(): Promise<void> {
+    const sql = `DELETE FROM MOVIES; DELETE FROM DIRECTORS`;
+
+    return new Promise((resolve, reject) => {
+      this.db.exec(sql, (result: any) => {
+        if (result instanceof Error) reject(result);
+        resolve();
+      });
+    });
+  }
 }
 
 const movieDatabase = new MovieDataBase();

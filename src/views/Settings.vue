@@ -64,7 +64,7 @@
           <q-btn
             label="CLEAN"
             color="negative"
-            @click="dialogOpen = true"
+            @click="confirmDialogOpen = true"
           ></q-btn>
         </q-item-section>
       </q-item>
@@ -90,6 +90,7 @@
 import ConfirmDialog from "@/components/ConfirmDialog";
 import { settings } from "@/settings";
 import { changeTheme } from "@/themes";
+import movieDatabase from "@/database";
 
 import { remote } from "electron";
 import path from "path";
@@ -166,7 +167,10 @@ export default {
       settings.set("theme", theme.value);
     },
     cleanDatabase() {
-      console.log("TODO");
+      movieDatabase.cleanDatabase().then(() => {
+        this.showInfoDialog("Database cleared");
+      });
+      this.$root.$emit("reloadMovies");
     },
     exportDatabase() {
       dialog
