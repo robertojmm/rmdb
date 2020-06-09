@@ -10,7 +10,10 @@
           flat
           :label="$t('common.ok')"
           color="negative"
-          @click="callBack"
+          @click="
+            callBack();
+            open = false;
+          "
         />
         <q-btn
           flat
