@@ -6,7 +6,11 @@
           <q-item-label>{{ $t("settings.language") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-select v-model="actualLanguage" :options="languages" @input="changeLanguage" />
+          <q-select
+            v-model="actualLanguage"
+            :options="languages"
+            @input="changeLanguage"
+          />
         </q-item-section>
       </q-item>
 
@@ -28,7 +32,11 @@
           <q-item-label>{{ $t("settings.theme") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-select v-model="actualTheme" :options="themes" @input="changeTheme" />
+          <q-select
+            v-model="actualTheme"
+            :options="themes"
+            @input="changeTheme"
+          />
         </q-item-section>
       </q-item>
 
@@ -39,9 +47,19 @@
           <q-item-label>{{ $t("settings.clean_db") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-btn label="CLEAN" color="negative"></q-btn>
+          <q-btn
+            label="CLEAN"
+            color="negative"
+            @click="dialogOpen = true"
+          ></q-btn>
         </q-item-section>
       </q-item>
+
+      <confirmDialog
+        :dialogOpen.sync="dialogOpen"
+        title="Wanna clean database?"
+        :callBack="cleanDatabase"
+      ></confirmDialog>
 
       <!-- <q-expansion-item expand-separator icon="schedule" label="Postponed">
         <q-item tag="label" v-ripple :header-inset-level="1.5">
@@ -58,25 +76,27 @@
 </template>
 
 <script>
+import ConfirmDialog from "@/components/ConfirmDialog";
 import { settings } from "@/settings";
-import { colors } from "quasar";
 import { changeTheme } from "@/themes";
 
 export default {
   name: "SettingsView",
+  components: {
+    ConfirmDialog,
+  },
   data() {
     return {
-      visible: false,
+      dialogOpen: false,
       actualLanguage: null,
       languages: [],
       actualTheme: null,
-      themes: []
+      themes: [],
     };
   },
   mounted() {
     this.loadLanguages();
     this.loadThemes();
-    console.log(colors);
   },
   methods: {
     loadLanguages() {
@@ -86,7 +106,7 @@ export default {
       for (const [languageValue, languageName] of languages) {
         const languageOption = {
           label: languageName,
-          value: languageValue
+          value: languageValue,
         };
 
         this.languages.push(languageOption);
@@ -111,7 +131,7 @@ export default {
       for (const [code, label] of themes) {
         const themeOption = {
           label,
-          value: code
+          value: code,
         };
 
         this.themes.push(themeOption);
@@ -124,8 +144,11 @@ export default {
     changeTheme(theme) {
       changeTheme(theme.value);
       settings.set("theme", theme.value);
-    }
-  }
+    },
+    cleanDatabase() {
+      console.log("TODO");
+    },
+  },
 };
 </script>
 

@@ -42,32 +42,15 @@
         <q-page class="no-overflow bg-custom">
           <movieForm :movie="updatedMovie" :readonly="editBlocked" />
 
-          <q-dialog v-model="confirmRemoveMovie" persistent>
-            <q-card>
-              <q-card-section class="row items-center">
-                <span class="q-ml-sm">{{
-                  $t("movie_editor.delete_dialog", {
-                    title: updatedMovie.title,
-                  })
-                }}</span>
-              </q-card-section>
-
-              <q-card-actions align="right">
-                <q-btn
-                  flat
-                  :label="$t('common.ok')"
-                  color="negative"
-                  @click="removeMovie"
-                />
-                <q-btn
-                  flat
-                  :label="$t('common.cancel')"
-                  color="primary"
-                  v-close-popup
-                />
-              </q-card-actions>
-            </q-card>
-          </q-dialog>
+          <confirmDialog
+            :dialogOpen.sync="confirmRemoveMovie"
+            :title="
+              $t('movie_editor.delete_dialog', {
+                title: updatedMovie.title,
+              })
+            "
+            :callBack="removeMovie"
+          />
         </q-page>
       </q-page-container>
 
@@ -92,6 +75,7 @@
 <script>
 import Movie from "@/interfaces/movie.interface";
 import MovieForm from "@/components/MovieForm";
+import ConfirmDialog from "@/components/ConfirmDialog";
 import open from "open";
 import movieDatabase from "@/database";
 
@@ -157,6 +141,7 @@ export default {
   },
   components: {
     MovieForm,
+    ConfirmDialog,
   },
 };
 </script>
