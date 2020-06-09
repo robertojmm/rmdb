@@ -119,7 +119,7 @@ class MovieDataBase {
     });
   }
 
-  getDirectorId(name: string) {
+  getDirectorId(name: string): Promise<any> {
     const sql = `SELECT ID FROM DIRECTORS WHERE NAME = $name;`;
 
     return new Promise((resolve, reject) => {
@@ -232,13 +232,15 @@ class MovieDataBase {
     DIRECTOR_ID = $directorId
     WHERE ID = $id`;
 
+    const directorId = await this.getDirectorId(movie.director);
+
     const params: MovieParams = {
       $title: movie.title,
       $plot: movie.plot,
       $releaseDate: movie.releaseDate,
       $filePath: movie.filePath,
       $viewed: movie.viewed,
-      $directorId: 1,
+      $directorId: directorId,
       $id: movie.id,
     };
 
