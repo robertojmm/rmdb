@@ -367,6 +367,12 @@ class MovieDataBase {
     return new Promise((resolve, reject) => {
       this.db.exec(sql, (result: any) => {
         if (result instanceof Error) reject(result);
+
+        const folder = settings.get("directories").posters;
+        const files = fs.readdirSync(folder);
+        for (const file of files) {
+          fs.unlinkSync(`${folder}/${file}`);
+        }
         resolve();
       });
     });
