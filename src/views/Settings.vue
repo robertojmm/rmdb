@@ -6,11 +6,7 @@
           <q-item-label>{{ $t("settings.language") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-select
-            v-model="actualLanguage"
-            :options="languages"
-            @input="changeLanguage"
-          />
+          <q-select v-model="actualLanguage" :options="languages" @input="changeLanguage" />
         </q-item-section>
       </q-item>
 
@@ -32,11 +28,7 @@
           <q-item-label>{{ $t("settings.theme") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-select
-            v-model="actualTheme"
-            :options="themes"
-            @input="changeTheme"
-          />
+          <q-select v-model="actualTheme" :options="themes" @input="changeTheme" />
         </q-item-section>
       </q-item>
 
@@ -44,13 +36,10 @@
 
       <q-item>
         <q-item-section>
-          <q-btn
-            label="EXPORT"
-            color="primary"
-            @click="exportDatabase"
-          ></q-btn> </q-item-section
-        ><q-item-section>
-          <q-btn label="IMPORT" color="primary" @click="importDatabase"></q-btn>
+          <q-btn :label="$t('settings.export_btn')" color="primary" @click="exportDatabase"></q-btn>
+        </q-item-section>
+        <q-item-section>
+          <q-btn :label="$t('settings.import_btn')" color="primary" @click="importDatabase"></q-btn>
         </q-item-section>
       </q-item>
 
@@ -62,7 +51,7 @@
         </q-item-section>
         <q-item-section>
           <q-btn
-            label="CLEAN"
+            :label="$t('settings.clean_btn')"
             color="negative"
             @click="confirmDialogOpen = true"
           ></q-btn>
@@ -71,7 +60,7 @@
 
       <confirmDialog
         :dialogOpen.sync="confirmDialogOpen"
-        title="Wanna clean database?"
+        :title="$t('settings.clean_dialog')"
         :callBack="cleanDatabase"
       ></confirmDialog>
 
@@ -102,7 +91,7 @@ const app = remote.app;
 export default {
   name: "SettingsView",
   components: {
-    ConfirmDialog,
+    ConfirmDialog
   },
   data() {
     return {
@@ -112,7 +101,7 @@ export default {
       themes: [],
       confirmDialogOpen: false,
       infoDialogOpen: false,
-      infoDialogContent: "",
+      infoDialogContent: ""
     };
   },
   mounted() {
@@ -127,7 +116,7 @@ export default {
       for (const [languageValue, languageName] of languages) {
         const languageOption = {
           label: languageName,
-          value: languageValue,
+          value: languageValue
         };
 
         this.languages.push(languageOption);
@@ -152,7 +141,7 @@ export default {
       for (const [code, label] of themes) {
         const themeOption = {
           label,
-          value: code,
+          value: code
         };
 
         this.themes.push(themeOption);
@@ -175,7 +164,7 @@ export default {
     exportDatabase() {
       dialog
         .showSaveDialog({
-          defaultPath: path.join(app.getPath("desktop"), "RMDB"),
+          defaultPath: path.join(app.getPath("desktop"), "RMDB")
         })
         .then(({ canceled, filePath }) => {
           if (canceled) {
@@ -183,14 +172,14 @@ export default {
           }
 
           this.zipDirectory(settings.get("directories").main, filePath)
-            .then(() => this.showInfoDialog("Database exported successfully"))
+            .then(() => this.showInfoDialog(this.$t("settings.export_success")))
             .catch(console.error);
         });
     },
     importDatabase() {
       dialog
         .showOpenDialog({
-          filters: [{ name: "RMDB zip files", extensions: ["zip"] }],
+          filters: [{ name: "RMDB zip files", extensions: ["zip"] }]
         })
         .then(({ canceled, filePaths }) => {
           if (canceled) {
@@ -201,14 +190,14 @@ export default {
 
           this.unzipFile(filePaths[0], output)
             .then(() => {
-              this.showInfoDialog("Database imported successfully");
+              this.showInfoDialog(this.$t("settings.import_success"));
               this.$root.$emit("reloadMovies");
             })
             .catch(console.error);
         });
     },
     zipDirectory(source, out) {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         const zip = new AdmZip();
         zip.addLocalFolder(source, "RMDB");
         zip.writeZip(out + ".zip");
@@ -229,8 +218,8 @@ export default {
       setTimeout(() => {
         this.infoDialogOpen = false;
       }, 5000);
-    },
-  },
+    }
+  }
 };
 </script>
 

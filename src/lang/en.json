@@ -31,7 +31,13 @@
     "language": "Language",
     "default_parser": "Default parser",
     "theme": "Theme",
-    "clean_db": "Clean database"
+    "clean_db": "Clean database",
+    "clean_btn": "Clean",
+    "clean_dialog": "Are you sure you want to clean the data base?",
+    "export_btn": "Export data base",
+    "import_btn": "Import data base",
+    "export_success": "Database exported successfully",
+    "import_success": "Database imported successfully"
   },
   "menu_drawer": {
     "add_movie": "Add Movie",

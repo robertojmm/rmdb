@@ -31,7 +31,13 @@
     "language": "Idioma",
     "default_parser": "Parseador predeterminado",
     "theme": "Tema",
-    "clean_db": "Limpiar base de datos"
+    "clean_db": "Limpiar base de datos",
+    "clean_btn": "Limpiar",
+    "clean_dialog": "¿Estás seguro de que quieres limpiar la base de datos?",
+    "export_btn": "Exportar base de datos",
+    "import_btn": "Importar base de datos",
+    "export_success": "Base de datos exportada con éxito",
+    "import_success": "Base de datos importada con éxito"
   },
   "menu_drawer": {
     "add_movie": "Añadir Película",
