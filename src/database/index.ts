@@ -10,10 +10,14 @@ sqlite3.verbose();
 
 class MovieDataBase {
   db: sqlite3.Database;
+  postersFolder: string;
 
   constructor() {
+    this.postersFolder = settings.get("directories").posters;
+
     this.db = new sqlite3.Database(
       settings.get("directories").main + "/rmdb.sqlite3",
+      sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
       (error: any) => {
         if (error) {
           throw error;
@@ -56,8 +60,10 @@ class MovieDataBase {
         title: row.title,
         plot: row.plot,
         posterUrl: {
-          normal: this.base64ImageEncode(posterPaths.normal),
-          big: this.base64ImageEncode(posterPaths.big),
+          normal: this.base64ImageEncode(
+            this.postersFolder + posterPaths.normal
+          ),
+          big: this.base64ImageEncode(this.postersFolder + posterPaths.big),
         },
         filePath: row.file_path,
         viewed: !!row.viewed,
@@ -144,21 +150,30 @@ class MovieDataBase {
     const posterExtension = "jpg"; //movie.posterUrl.big.split(".").pop();
     const posters = await this.getPosters(movie);
     const posterName = btoa(movie.title);
-    const posterPath = settings.get("directories").posters + "/" + posterName;
+    const posterPath = "/" + posterName;
 
     const paths = {
       normal: posterPath + "_md." + posterExtension,
       big: posterPath + "_xl." + posterExtension,
     };
-    console.log(posters);
 
-    fs.writeFile(paths.big, posters.big, "binary", (err: any) => {
-      if (err) throw err;
-    });
+    fs.writeFile(
+      this.postersFolder + paths.big,
+      posters.big,
+      "binary",
+      (err: any) => {
+        if (err) throw err;
+      }
+    );
 
-    fs.writeFile(paths.normal, posters.normal, "binary", (err: any) => {
-      if (err) throw err;
-    });
+    fs.writeFile(
+      this.postersFolder + paths.normal,
+      posters.normal,
+      "binary",
+      (err: any) => {
+        if (err) throw err;
+      }
+    );
 
     return paths;
   }
@@ -182,8 +197,7 @@ class MovieDataBase {
       const posters: string[] = Object.values(posterPaths);
 
       for (const poster of posters) {
-        console.log(poster);
-        fs.unlink(poster, (error) => {
+        fs.unlink(this.postersFolder + poster, (error) => {
           if (error) console.log(error);
         });
       }
@@ -367,16 +381,18 @@ class MovieDataBase {
     return new Promise((resolve, reject) => {
       this.db.exec(sql, (result: any) => {
         if (result instanceof Error) reject(result);
-
-        const folder = settings.get("directories").posters;
-        const files = fs.readdirSync(folder);
-        for (const file of files) {
-          fs.unlinkSync(`${folder}/${file}`);
-        }
         resolve();
       });
-    });
+    }).then(this.cleanFolderDirectory);
   }
+
+  cleanFolderDirectory = (): void => {
+    const files = fs.readdirSync(this.postersFolder);
+
+    for (const file of files) {
+      fs.unlinkSync(`${this.postersFolder}/${file}`);
+    }
+  };
 }
 
 const movieDatabase = new MovieDataBase();
