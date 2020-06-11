@@ -158,8 +158,8 @@ export default {
     cleanDatabase() {
       movieDatabase.cleanDatabase().then(() => {
         this.showInfoDialog("Database cleared");
+        this.$root.$emit("reloadMovies");
       });
-      this.$root.$emit("reloadMovies");
     },
     exportDatabase() {
       dialog
@@ -205,6 +205,7 @@ export default {
       });
     },
     unzipFile(source, out) {
+      movieDatabase.cleanFolderDirectory();
       return new Promise((resolve, reject) => {
         const zip = new AdmZip(source);
         zip.extractAllTo(out, true);
