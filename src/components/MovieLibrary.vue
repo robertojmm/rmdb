@@ -22,9 +22,11 @@
           :options="moviePosterSizes"
           style="width: 250px"
         />
-        <q-badge color="secondary">{{
+        <q-badge color="secondary">
+          {{
           $t("movie_library.total_movies", { amount: movies.length })
-        }}</q-badge>
+          }}
+        </q-badge>
       </div>
       <div class="col-3">
         <q-select
@@ -75,7 +77,7 @@
 import Movie from "@/components/Movie";
 import MovieEditor from "@/components/MovieEditor";
 import BackToTopArrow from "@/components/BackToTopArrow";
-import movieDatabase from "@/database";
+import { movieDatabase } from "@/database";
 
 export default {
   name: "MovieLibrary",
@@ -88,7 +90,7 @@ export default {
       movieCaseWidth: null,
       moviePosterSizes: [],
       filter: null,
-      filters: [],
+      filters: []
     };
   },
   mounted() {
@@ -111,7 +113,7 @@ export default {
     },
     loadMovies() {
       console.log("loading");
-      movieDatabase.loadAllMovies().then((movies) => {
+      movieDatabase.loadAllMovies().then(movies => {
         console.log(movies);
         this.movies = movies;
       });
@@ -122,7 +124,7 @@ export default {
         const title = event.target.value.trim();
         movieDatabase
           .searchMovie(title)
-          .then((movies) => {
+          .then(movies => {
             this.movies = movies;
           })
           .catch(console.error);
@@ -141,7 +143,7 @@ export default {
       const isViewed = filter === this.$t("common.viewed");
       movieDatabase
         .filterMovie(isViewed)
-        .then((filteredMovies) => {
+        .then(filteredMovies => {
           this.movies = filteredMovies;
         })
         .catch(console.error);
@@ -151,25 +153,25 @@ export default {
       this.filters = [
         this.$t("movie_library.filter_default"),
         this.$t("common.viewed"),
-        this.$t("common.not_viewed"),
+        this.$t("common.not_viewed")
       ];
 
       this.movieCaseWidth = {
         label: this.$t("movie_library.poster_sizes.normal"),
-        value: "col-2",
+        value: "col-2"
       };
       this.moviePosterSizes = [
         { label: this.$t("movie_library.poster_sizes.small"), value: "col-1" },
         { label: this.$t("movie_library.poster_sizes.normal"), value: "col-2" },
-        { label: this.$t("movie_library.poster_sizes.big"), value: "col-3" },
+        { label: this.$t("movie_library.poster_sizes.big"), value: "col-3" }
       ];
-    },
+    }
   },
   components: {
     Movie,
     BackToTopArrow,
-    MovieEditor,
-  },
+    MovieEditor
+  }
 };
 </script>
 

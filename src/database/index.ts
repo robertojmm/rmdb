@@ -8,6 +8,8 @@ import { remote } from "electron";
 import MovieParams from "@/interfaces/movieParams.interface";
 sqlite3.verbose();
 
+let movieDatabase;
+
 class MovieDataBase {
   db: sqlite3.Database;
   postersFolder: string;
@@ -395,5 +397,8 @@ class MovieDataBase {
   };
 }
 
-const movieDatabase = new MovieDataBase();
-export default movieDatabase;
+function initDB() {
+  movieDatabase = new MovieDataBase();
+}
+
+export { initDB, movieDatabase };

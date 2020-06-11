@@ -1,8 +1,8 @@
 import fs from "fs";
-//import movieDatabase from "./database";
 import { settings } from "@/settings";
 import i18n from "@/i18n";
 import { changeTheme } from "@/themes";
+import { initDB } from "@/database";
 
 function init(): void {
   const directories = settings.get("directories");
@@ -21,6 +21,8 @@ function init(): void {
 
   const actualTheme: string = settings.get("theme");
   changeTheme(actualTheme);
+
+  initDB();
 }
 
 export default init;

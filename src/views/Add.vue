@@ -52,9 +52,11 @@
           <div class="text-h6">{{ this.dialog.title }}</div>
         </q-card-section>
 
-        <q-card-section class="q-pt-none">{{
+        <q-card-section class="q-pt-none">
+          {{
           this.dialog.message
-        }}</q-card-section>
+          }}
+        </q-card-section>
 
         <q-card-actions align="right">
           <q-btn flat label="OK" color="primary" v-close-popup />
@@ -71,7 +73,7 @@ import MovieSearch from "@/components/MovieSearch";
 import MovieForm from "@/components/MovieForm";
 import BackToTopArrow from "@/components/BackToTopArrow";
 import { settings, extractor } from "@/settings";
-import movieDatabase from "@/database";
+import { movieDatabase } from "@/database";
 import extractorsList from "@/enums/extractors.enum";
 
 export default {
@@ -79,7 +81,7 @@ export default {
   components: {
     MovieSearch,
     MovieForm,
-    BackToTopArrow,
+    BackToTopArrow
   },
   data() {
     return {
@@ -92,9 +94,9 @@ export default {
       dialog: {
         open: false,
         title: "",
-        message: "",
+        message: ""
       },
-      disableSearchInput: false,
+      disableSearchInput: false
     };
   },
   methods: {
@@ -121,7 +123,7 @@ export default {
     saveMovie() {
       movieDatabase
         .insertMovie(this.actualMovie)
-        .then((result) => {
+        .then(result => {
           this.showDialog(result);
           this.$root.$emit("reloadMovies");
         })
@@ -156,23 +158,23 @@ export default {
         plot: "",
         posterUrl: {
           normal: "/not-found.png",
-          big: "/not-found.png",
+          big: "/not-found.png"
         },
         releaseDate: "1970-01-01",
         filePath: "",
         viewed: false,
-        director: "",
+        director: ""
       };
 
       this.loadMovieIntoForm(movie);
-    },
+    }
   },
   mounted() {
     this.$refs.searchInput.$el.focus();
 
     this.extractors = ["Manual", ...Object.keys(extractorsList)];
     this.actualExtractor = settings.get("extractor");
-  },
+  }
 };
 </script>
 

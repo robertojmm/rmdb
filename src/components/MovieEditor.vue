@@ -3,35 +3,23 @@
     <q-layout view="hHh lpR fFf" container class="layout bg-white">
       <q-header elevated class="bg-primary text-white">
         <q-toolbar class="toolbar">
-          <q-btn
-            flat
-            icon="play_arrow"
-            @click="playMovie"
-            :disable="!hasFileAssociated"
-          >
-            <q-tooltip :delay="btnDelay" content-class="bg-accent">
-              {{ $t("movie_editor.play_btn") }}
-            </q-tooltip>
+          <q-btn flat icon="play_arrow" @click="playMovie" :disable="!hasFileAssociated">
+            <q-tooltip :delay="btnDelay" content-class="bg-accent">{{ $t("movie_editor.play_btn") }}</q-tooltip>
           </q-btn>
           <q-btn flat icon="edit" @click="editBlocked = !editBlocked">
-            <q-tooltip :delay="btnDelay" content-class="bg-accent">
-              {{ $t("movie_editor.edit_btn") }}
-            </q-tooltip>
+            <q-tooltip :delay="btnDelay" content-class="bg-accent">{{ $t("movie_editor.edit_btn") }}</q-tooltip>
           </q-btn>
           <q-btn flat icon="delete" @click="confirmRemoveMovie = true">
-            <q-tooltip :delay="btnDelay" content-class="bg-accent">
-              {{ $t("movie_editor.delete_btn") }}
-            </q-tooltip>
+            <q-tooltip
+              :delay="btnDelay"
+              content-class="bg-accent"
+            >{{ $t("movie_editor.delete_btn") }}</q-tooltip>
           </q-btn>
-          <q-btn
-            flat
-            icon="folder"
-            @click="openMovieFolder"
-            :disable="!hasFileAssociated"
-          >
-            <q-tooltip :delay="btnDelay" content-class="bg-accent">
-              {{ $t("movie_editor.open_location") }}
-            </q-tooltip>
+          <q-btn flat icon="folder" @click="openMovieFolder" :disable="!hasFileAssociated">
+            <q-tooltip
+              :delay="btnDelay"
+              content-class="bg-accent"
+            >{{ $t("movie_editor.open_location") }}</q-tooltip>
           </q-btn>
           <q-space />
           <q-btn flat icon="close" @click="closeEditor" v-close-popup />
@@ -63,8 +51,7 @@
               content-class="bg-accent"
               anchor="center left"
               self="center right"
-              >{{ $t("movie_editor.save_btn") }}</q-tooltip
-            >
+            >{{ $t("movie_editor.save_btn") }}</q-tooltip>
           </q-btn>
         </q-toolbar>
       </q-footer>
@@ -77,7 +64,7 @@ import Movie from "@/interfaces/movie.interface";
 import MovieForm from "@/components/MovieForm";
 import ConfirmDialog from "@/components/ConfirmDialog";
 import open from "open";
-import movieDatabase from "@/database";
+import { movieDatabase } from "@/database";
 
 export default {
   name: "MovieEditor",
@@ -88,7 +75,7 @@ export default {
       editBlocked: true,
       hasFileAssociated: false,
       confirmRemoveMovie: false,
-      btnDelay: 1000,
+      btnDelay: 1000
     };
   },
   mounted() {
@@ -134,15 +121,15 @@ export default {
 
       this.editBlocked = true;
       //TODO show dialogs saying that the movie is updated
-    },
+    }
   },
   props: {
-    movie: Movie,
+    movie: Movie
   },
   components: {
     MovieForm,
-    ConfirmDialog,
-  },
+    ConfirmDialog
+  }
 };
 </script>
 

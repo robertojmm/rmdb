@@ -79,7 +79,7 @@
 import ConfirmDialog from "@/components/ConfirmDialog";
 import { settings } from "@/settings";
 import { changeTheme } from "@/themes";
-import movieDatabase from "@/database";
+import { movieDatabase } from "@/database";
 
 import { remote } from "electron";
 import path from "path";
