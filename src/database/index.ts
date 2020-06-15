@@ -304,38 +304,20 @@ class MovieDataBase {
     return new Promise((resolve, reject) => {
       const sql = `SELECT MOVIES.ID, TITLE, PLOT, RELEASE_DATE, POSTER_PATH, FILE_PATH, VIEWED, DIRECTORS.NAME AS director_name 
       FROM MOVIES INNER JOIN DIRECTORS ON DIRECTORS.ID = MOVIES.DIRECTOR_ID
-       WHERE TITLE LIKE $title ORDER BY TITLE ASC`;
+       WHERE TITLE LIKE $title OR NAME LIKE $name ORDER BY TITLE ASC`;
 
       this.db.all(
         sql,
         {
           $title: "%" + title + "%",
+          $name: "%" + title + "%",
         },
         (error: Error, rows: any) => {
           if (error) reject(error);
 
-          rows.length > 0 ? resolve(this.rowsToMovieObjects(rows)) : reject();
+          resolve(this.rowsToMovieObjects(rows));
         }
       );
-    }).catch((error) => {
-      return new Promise((resolve, reject) => {
-        if (error) reject(error);
-
-        const sql = `SELECT MOVIES.ID, TITLE, PLOT, RELEASE_DATE, POSTER_PATH, FILE_PATH, VIEWED, DIRECTORS.NAME AS director_name 
-        FROM MOVIES INNER JOIN DIRECTORS ON DIRECTORS.ID = MOVIES.DIRECTOR_ID
-         WHERE DIRECTORS.NAME LIKE $name ORDER BY TITLE ASC`;
-
-        this.db.all(
-          sql,
-          {
-            $name: "%" + title + "%",
-          },
-          (error: Error, rows: any) => {
-            if (error) reject(error);
-            resolve(this.rowsToMovieObjects(rows));
-          }
-        );
-      });
     });
   }
 
