@@ -1,8 +1,8 @@
 import Store from "electron-store";
 import { remote } from "electron";
-import Extractor from "./interfaces/extractor.interface";
-import Extractors from "@/enums/extractors.enum";
-import extractorsList from "@/extractors";
+import Parser from "./interfaces/parser.interface";
+import Parsers from "@/enums/parsers.enum";
+import parsersList from "@/parsers";
 
 const app = remote.app;
 const homePath = app.getPath("documents");
@@ -17,12 +17,11 @@ const settings = new Store({
     },
     language: "en",
     theme: "default",
-    extractor: Extractors.TheMovieDB,
+    parser: Parsers.TheMovieDB,
   },
 });
 
-const extractorName = settings.get("extractor");
-const extractorClass = extractorsList[extractorName];
-const extractor: Extractor = new extractorClass();
+const parserName = settings.get("parser");
+const parser: Parser = new parsersList[parserName]();
 
-export { settings, extractor };
+export { settings, parser };

@@ -1,4 +1,4 @@
-interface Extractor {
+interface Parser {
   apiBaseUrl: string;
   movieSearchEndPoint: string;
   params: Record<string, any>;
@@ -7,4 +7,4 @@ interface Extractor {
   fetchMovie(): void;
 }
 
-export default Extractor;
+export default Parser;

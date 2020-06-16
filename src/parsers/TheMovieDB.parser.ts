@@ -1,8 +1,8 @@
-import Extractor from "../interfaces/extractor.interface";
+import Parser from "../interfaces/parser.interface";
 import Movie from "@/interfaces/movie.interface";
 import axios from "axios";
 
-class TheMovieDBExtractor implements Extractor {
+class TheMovieDBParser implements Parser {
   apiBaseUrl = "https://api.themoviedb.org/3/";
   movieSearchEndPoint =
     "search/movie?api_key=e06f8189e697062442596c50464e3442&";
@@ -85,4 +85,4 @@ class TheMovieDBExtractor implements Extractor {
   }
 }
 
-export default TheMovieDBExtractor;
+export default TheMovieDBParser;

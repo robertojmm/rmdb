@@ -13,8 +13,8 @@
         <q-select
           filled
           :label="$t('movie_add.parser')"
-          v-model="actualExtractor"
-          :options="extractors"
+          v-model="actualParser"
+          :options="parsers"
           style="width: 250px"
           @input="changeParser"
         />
@@ -72,9 +72,9 @@
 import MovieSearch from "@/components/MovieSearch";
 import MovieForm from "@/components/MovieForm";
 import BackToTopArrow from "@/components/BackToTopArrow";
-import { settings, extractor } from "@/settings";
+import { settings, parser } from "@/settings";
 import { movieDatabase } from "@/database";
-import extractorsList from "@/enums/extractors.enum";
+import parsersList from "@/enums/parsers.enum";
 
 export default {
   name: "AddMovie",
@@ -89,8 +89,8 @@ export default {
       movies: [],
       showForm: false,
       actualMovie: {},
-      actualExtractor: null,
-      extractors: [],
+      actualParser: null,
+      parsers: [],
       dialog: {
         open: false,
         title: "",
@@ -109,7 +109,7 @@ export default {
         this.showForm = false;
         this.$q.loading.show();
 
-        const movies = await extractor.searchMovie(movieTitle);
+        const movies = await parser.searchMovie(movieTitle);
         this.movies = movies;
 
         this.$q.loading.hide();
@@ -172,8 +172,8 @@ export default {
   mounted() {
     this.$refs.searchInput.$el.focus();
 
-    this.extractors = ["Manual", ...Object.keys(extractorsList)];
-    this.actualExtractor = settings.get("extractor");
+    this.parsers = ["Manual", ...Object.keys(parsersList)];
+    this.actualParser = settings.get("parser");
   }
 };
 </script>
