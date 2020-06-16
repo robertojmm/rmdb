@@ -370,6 +370,24 @@ class MovieDataBase {
       fs.unlinkSync(`${this.postersFolder}/${file}`);
     }
   };
+
+  movieExist(movie: Movie): Promise<boolean | Error> {
+    return new Promise((resolve, reject) => {
+      const sql = `SELECT TITLE FROM MOVIES WHERE TITLE = $title AND ID NOT IN ($id)`;
+
+      this.db.all(
+        sql,
+        {
+          $title: movie.title,
+          $id: movie.id,
+        },
+        (error: Error, rows: any) => {
+          if (error) reject(error);
+          resolve(!!rows[0]);
+        }
+      );
+    });
+  }
 }
 
 function initDB() {

@@ -62,6 +62,14 @@
       </q-card>
     </q-dialog>
 
+    <q-dialog v-model="infoDialogOpen" position="bottom">
+      <q-card style="width: 350px">
+        <q-card-section class="row items-center no-wrap">
+          <span>{{ infoDialogContent }}</span>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
     <backToTopArrow />
   </div>
 </template>
@@ -96,6 +104,8 @@ export default {
         title: "",
         message: "",
       },
+      infoDialogOpen: false,
+      infoDialogContent: "",
       disableSearchInput: false,
     };
   },
@@ -120,7 +130,15 @@ export default {
       this.movies = [];
       this.showForm = true;
     },
-    saveMovie() {
+    async saveMovie() {
+      this.actualMovie.id = -1;
+      const movieExist = await movieDatabase.movieExist(this.actualMovie);
+
+      if (movieExist) {
+        this.showInfoDialog(this.$t("common.error_movieAlreadyExists"));
+        return;
+      }
+
       movieDatabase
         .insertMovie(this.actualMovie)
         .then((result) => {
@@ -141,6 +159,14 @@ export default {
 
         this.$refs.saveButton.$el.disabled = true;
       }
+    },
+    showInfoDialog(content) {
+      this.infoDialogOpen = true;
+      this.infoDialogContent = content;
+
+      setTimeout(() => {
+        this.infoDialogOpen = false;
+      }, 3000);
     },
     changeParser(parserName) {
       if (parserName === "Manual") {

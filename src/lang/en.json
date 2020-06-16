@@ -5,7 +5,8 @@
     "ok": "Ok",
     "add": "Add",
     "viewed": "Viewed",
-    "not_viewed": "Not viewed"
+    "not_viewed": "Not viewed",
+    "error_movieAlreadyExists": "Error: There exists already a movie with that title"
   },
   "movie_library": {
     "search": "Search in Rmdb",
@@ -51,7 +52,8 @@
     "delete_btn": "Delete",
     "open_location": "Open movie location",
     "save_btn": "Save",
-    "delete_dialog": "Are you sure you wanna delete '{title}'?"
+    "delete_dialog": "Are you sure you wanna delete '{title}'?",
+    "update_successful": "Movie updated successfully"
   },
   "movie_form": {
     "title": "Title",

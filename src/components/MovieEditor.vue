@@ -68,6 +68,13 @@
           </q-btn>
         </q-toolbar>
       </q-footer>
+      <q-dialog v-model="infoDialogOpen" position="bottom">
+        <q-card style="width: 350px">
+          <q-card-section class="row items-center no-wrap">
+            <span>{{ infoDialogContent }}</span>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
     </q-layout>
   </q-dialog>
 </template>
@@ -89,6 +96,8 @@ export default {
       hasFileAssociated: false,
       confirmRemoveMovie: false,
       btnDelay: 1000,
+      infoDialogOpen: false,
+      infoDialogContent: "",
     };
   },
   mounted() {
@@ -119,7 +128,14 @@ export default {
         })
         .catch(console.log);
     },
-    updateMovie() {
+    async updateMovie() {
+      const movieExist = await movieDatabase.movieExist(this.updatedMovie);
+
+      if (movieExist) {
+        this.showInfoDialog(this.$t("common.error_movieAlreadyExists"));
+        return;
+      }
+
       movieDatabase
         .updateMovie(
           this.updatedMovie,
@@ -127,14 +143,20 @@ export default {
             this.movie.title !== this.updatedMovie.title
         )
         .then(() => {
-          //Finish this
           this.$emit("update", this.updatedMovie);
           this.hasFileAssociated = this.updatedMovie.filePath !== "";
+          this.showInfoDialog(this.$t("movie_editor.update_successful"));
+          this.editBlocked = true;
         })
         .catch(console.log);
+    },
+    showInfoDialog(content) {
+      this.infoDialogOpen = true;
+      this.infoDialogContent = content;
 
-      this.editBlocked = true;
-      //TODO show dialogs saying that the movie is updated
+      setTimeout(() => {
+        this.infoDialogOpen = false;
+      }, 3000);
     },
   },
   props: {
