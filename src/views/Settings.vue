@@ -6,7 +6,11 @@
           <q-item-label>{{ $t("settings.language") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-select v-model="actualLanguage" :options="languages" @input="changeLanguage" />
+          <q-select
+            v-model="actualLanguage"
+            :options="languages"
+            @input="changeLanguage"
+          />
         </q-item-section>
       </q-item>
 
@@ -17,7 +21,11 @@
           <q-item-label>{{ $t("settings.default_parser") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-btn label="CLEAN" color="negative"></q-btn>
+          <q-select
+            v-model="actualParser"
+            :options="parsers"
+            @input="changeParser"
+          />
         </q-item-section>
       </q-item>
 
@@ -28,7 +36,11 @@
           <q-item-label>{{ $t("settings.theme") }}</q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-select v-model="actualTheme" :options="themes" @input="changeTheme" />
+          <q-select
+            v-model="actualTheme"
+            :options="themes"
+            @input="changeTheme"
+          />
         </q-item-section>
       </q-item>
 
@@ -36,10 +48,18 @@
 
       <q-item>
         <q-item-section>
-          <q-btn :label="$t('settings.export_btn')" color="primary" @click="exportDatabase"></q-btn>
+          <q-btn
+            :label="$t('settings.export_btn')"
+            color="primary"
+            @click="exportDatabase"
+          ></q-btn>
         </q-item-section>
         <q-item-section>
-          <q-btn :label="$t('settings.import_btn')" color="primary" @click="importDatabase"></q-btn>
+          <q-btn
+            :label="$t('settings.import_btn')"
+            color="primary"
+            @click="importDatabase"
+          ></q-btn>
         </q-item-section>
       </q-item>
 
@@ -79,6 +99,7 @@
 import ConfirmDialog from "@/components/ConfirmDialog";
 import { settings } from "@/settings";
 import { changeTheme } from "@/themes";
+import { Parsers, changeParser } from "@/parsers";
 import { movieDatabase } from "@/database";
 
 import { remote } from "electron";
@@ -91,7 +112,7 @@ const app = remote.app;
 export default {
   name: "SettingsView",
   components: {
-    ConfirmDialog
+    ConfirmDialog,
   },
   data() {
     return {
@@ -99,14 +120,17 @@ export default {
       languages: [],
       actualTheme: null,
       themes: [],
+      actualParser: null,
+      parsers: [],
       confirmDialogOpen: false,
       infoDialogOpen: false,
-      infoDialogContent: ""
+      infoDialogContent: "",
     };
   },
   mounted() {
     this.loadLanguages();
     this.loadThemes();
+    this.loadParsers();
   },
   methods: {
     loadLanguages() {
@@ -116,7 +140,7 @@ export default {
       for (const [languageValue, languageName] of languages) {
         const languageOption = {
           label: languageName,
-          value: languageValue
+          value: languageValue,
         };
 
         this.languages.push(languageOption);
@@ -141,7 +165,7 @@ export default {
       for (const [code, label] of themes) {
         const themeOption = {
           label,
-          value: code
+          value: code,
         };
 
         this.themes.push(themeOption);
@@ -155,6 +179,14 @@ export default {
       changeTheme(theme.value);
       settings.set("theme", theme.value);
     },
+    loadParsers() {
+      this.parsers = Object.keys(Parsers);
+      this.actualParser = settings.get("parser");
+    },
+    changeParser(parser) {
+      changeParser(parser);
+      settings.set("parser", parser);
+    },
     cleanDatabase() {
       movieDatabase.cleanDatabase().then(() => {
         this.showInfoDialog("Database cleared");
@@ -164,7 +196,7 @@ export default {
     exportDatabase() {
       dialog
         .showSaveDialog({
-          defaultPath: path.join(app.getPath("desktop"), "RMDB")
+          defaultPath: path.join(app.getPath("desktop"), "RMDB"),
         })
         .then(({ canceled, filePath }) => {
           if (canceled) {
@@ -179,7 +211,7 @@ export default {
     importDatabase() {
       dialog
         .showOpenDialog({
-          filters: [{ name: "RMDB zip files", extensions: ["zip"] }]
+          filters: [{ name: "RMDB zip files", extensions: ["zip"] }],
         })
         .then(({ canceled, filePaths }) => {
           if (canceled) {
@@ -197,7 +229,7 @@ export default {
         });
     },
     zipDirectory(source, out) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         const zip = new AdmZip();
         zip.addLocalFolder(source, "RMDB");
         zip.writeZip(out + ".zip");
@@ -206,7 +238,7 @@ export default {
     },
     unzipFile(source, out) {
       movieDatabase.cleanFolderDirectory();
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const zip = new AdmZip(source);
         zip.extractAllTo(out, true);
         resolve();
@@ -219,8 +251,8 @@ export default {
       setTimeout(() => {
         this.infoDialogOpen = false;
       }, 5000);
-    }
-  }
+    },
+  },
 };
 </script>
 

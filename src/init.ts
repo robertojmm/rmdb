@@ -2,6 +2,7 @@ import fs from "fs";
 import { settings } from "@/settings";
 import i18n from "@/i18n";
 import { changeTheme } from "@/themes";
+import { changeParser } from "@/parsers";
 import { initDB } from "@/database";
 
 function init(): void {
@@ -21,6 +22,9 @@ function init(): void {
 
   const actualTheme: string = settings.get("theme");
   changeTheme(actualTheme);
+
+  const actualParser: string = settings.get("parser");
+  changeParser(actualParser);
 
   initDB();
 }

@@ -1,8 +1,5 @@
 import Store from "electron-store";
 import { remote } from "electron";
-import Parser from "./interfaces/parser.interface";
-import Parsers from "@/enums/parsers.enum";
-import parsersList from "@/parsers";
 
 const app = remote.app;
 const homePath = app.getPath("documents");
@@ -17,11 +14,8 @@ const settings = new Store({
     },
     language: "en",
     theme: "default",
-    parser: Parsers.TheMovieDB,
+    parser: "TheMovieDB",
   },
 });
 
-const parserName = settings.get("parser");
-const parser: Parser = new parsersList[parserName]();
-
-export { settings, parser };
+export { settings };

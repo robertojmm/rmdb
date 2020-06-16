@@ -53,9 +53,7 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          {{
-          this.dialog.message
-          }}
+          {{ this.dialog.message }}
         </q-card-section>
 
         <q-card-actions align="right">
@@ -72,16 +70,18 @@
 import MovieSearch from "@/components/MovieSearch";
 import MovieForm from "@/components/MovieForm";
 import BackToTopArrow from "@/components/BackToTopArrow";
-import { settings, parser } from "@/settings";
+import { settings } from "@/settings";
 import { movieDatabase } from "@/database";
-import parsersList from "@/enums/parsers.enum";
+//import parsersList from "@/enums/parsers.enum";
+
+import { Parsers, parser } from "@/parsers";
 
 export default {
   name: "AddMovie",
   components: {
     MovieSearch,
     MovieForm,
-    BackToTopArrow
+    BackToTopArrow,
   },
   data() {
     return {
@@ -94,9 +94,9 @@ export default {
       dialog: {
         open: false,
         title: "",
-        message: ""
+        message: "",
       },
-      disableSearchInput: false
+      disableSearchInput: false,
     };
   },
   methods: {
@@ -123,7 +123,7 @@ export default {
     saveMovie() {
       movieDatabase
         .insertMovie(this.actualMovie)
-        .then(result => {
+        .then((result) => {
           this.showDialog(result);
           this.$root.$emit("reloadMovies");
         })
@@ -158,23 +158,23 @@ export default {
         plot: "",
         posterUrl: {
           normal: "/not-found.png",
-          big: "/not-found.png"
+          big: "/not-found.png",
         },
         releaseDate: "1970-01-01",
         filePath: "",
         viewed: false,
-        director: ""
+        director: "",
       };
 
       this.loadMovieIntoForm(movie);
-    }
+    },
   },
   mounted() {
     this.$refs.searchInput.$el.focus();
 
-    this.parsers = ["Manual", ...Object.keys(parsersList)];
+    this.parsers = ["Manual", ...Object.keys(Parsers)];
     this.actualParser = settings.get("parser");
-  }
+  },
 };
 </script>
 
