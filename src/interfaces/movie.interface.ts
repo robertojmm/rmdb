@@ -1,12 +1,12 @@
 interface Movie {
-  id: number | string;
+  id: number;
   title: string;
   plot: string;
   posterUrl: {
     normal: string;
     big: string;
   };
-  releaseDate: string; // Change to object?
+  releaseDate: string;
   filePath?: string;
   viewed: boolean;
   director: string;

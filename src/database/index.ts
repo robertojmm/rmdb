@@ -8,7 +8,7 @@ import { remote } from "electron";
 import MovieParams from "@/interfaces/movieParams.interface";
 sqlite3.verbose();
 
-let movieDatabase;
+let movieDatabase: MovieDataBase;
 
 class MovieDataBase {
   db: sqlite3.Database;
@@ -52,9 +52,7 @@ class MovieDataBase {
   }
 
   rowsToMovieObjects(rows: any[]): Movie[] {
-    const movies: Movie[] = [];
-
-    for (const row of rows) {
+    return rows.map((row) => {
       const posterPaths = JSON.parse(row.poster_path);
 
       const movie: Movie = {
@@ -72,11 +70,8 @@ class MovieDataBase {
         releaseDate: row.release_date,
         director: row.director_name,
       };
-
-      movies.push(movie);
-    }
-
-    return movies;
+      return movie;
+    });
   }
 
   async getPosters(movie: Movie) {
@@ -149,7 +144,7 @@ class MovieDataBase {
   async writePosterFiles(
     movie: Movie
   ): Promise<{ big: string; normal: string }> {
-    const posterExtension = "jpg"; //movie.posterUrl.big.split(".").pop();
+    const posterExtension = "jpg";
     const posters = await this.getPosters(movie);
     const posterName = btoa(movie.title);
     const posterPath = "/" + posterName;
@@ -180,12 +175,12 @@ class MovieDataBase {
     return paths;
   }
 
-  deletePosterFiles(movieId: number | string): Promise<any> {
-    const sqlSearchPoster = `SELECT POSTER_PATH FROM MOVIES WHERE ID = $id`;
+  deletePosterFiles(movieId: number): Promise<any> {
+    const sql = `SELECT POSTER_PATH FROM MOVIES WHERE ID = $id`;
 
     return new Promise((resolve, reject) => {
       this.db.all(
-        sqlSearchPoster,
+        sql,
         {
           $id: movieId,
         },
@@ -293,9 +288,7 @@ class MovieDataBase {
       this.db.all(sql, (error: Error, rows: any) => {
         if (error) reject(error);
 
-        const movies: Movie[] = this.rowsToMovieObjects(rows);
-
-        resolve(movies);
+        resolve(this.rowsToMovieObjects(rows));
       });
     });
   }
