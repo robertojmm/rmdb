@@ -275,6 +275,7 @@ class MovieDataBase {
     return new Promise((resolve, reject) => {
       this.db.run(sql, params, (result: any) => {
         if (result instanceof Error) reject(result);
+        this.deleteOrphanDirectors();
         resolve(result);
       });
     });
@@ -345,6 +346,7 @@ class MovieDataBase {
           },
           (result: any) => {
             if (result instanceof Error) reject(result);
+            this.deleteOrphanDirectors();
             resolve();
           }
         );
@@ -386,6 +388,18 @@ class MovieDataBase {
           resolve(!!rows[0]);
         }
       );
+    });
+  }
+
+  deleteOrphanDirectors(): Promise<any> {
+    const sql = `DELETE FROM DIRECTORS WHERE ID NOT IN 
+    (SELECT DIRECTORS.ID FROM DIRECTORS INNER JOIN MOVIES ON DIRECTORS.ID = MOVIES.DIRECTOR_ID)`;
+
+    return new Promise((resolve, reject) => {
+      this.db.run(sql, (result: any) => {
+        if (result instanceof Error) reject(result);
+        resolve();
+      });
     });
   }
 }
