@@ -15,6 +15,7 @@
   "main": "background.js",
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "adm-zip": "^0.4.16",
     "aws-sdk": "^2.662.0",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
