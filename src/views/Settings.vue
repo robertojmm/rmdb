@@ -66,7 +66,7 @@
       <q-item>
         <q-item-section>
           <q-btn
-            label="movie folders"
+            :label="$t('settings.configure_movie_folders')"
             color="primary"
             @click="configurateFolders = true"
           ></q-btn>
@@ -106,7 +106,9 @@
     <q-dialog v-model="configurateFolders" full-width persistent>
       <q-card>
         <q-card-section>
-          <div class="text-h6">Full Width</div>
+          <div class="text-h6">
+            {{ $t("settings.movie_folders") }}
+          </div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
@@ -119,32 +121,28 @@
                   </q-item-section>
 
                   <q-item-section side>
-                    <q-btn-group>
-                      <q-btn color="primary" icon="edit" />
-                      <q-btn
-                        color="negative"
-                        icon="delete"
-                        @click="removeMovieFolder(folder)"
-                      />
-                    </q-btn-group>
+                    <q-btn
+                      color="negative"
+                      icon="delete"
+                      @click="removeMovieFolder(folder)"
+                    />
                   </q-item-section>
                 </q-item>
               </template>
 
               <q-item clickable v-ripple>
                 <q-item-section>
-                  <q-item-label>Item with caption</q-item-label>
+                  <q-item-label>{{
+                    $t("settings.add_movie_folder")
+                  }}</q-item-label>
                 </q-item-section>
 
                 <q-item-section side>
-                  <q-btn-group>
-                    <q-btn
-                      color="primary"
-                      icon="colorize"
-                      @click="addMovieFolder"
-                    />
-                    <q-btn color="negative" icon="delete" />
-                  </q-btn-group>
+                  <q-btn
+                    color="primary"
+                    icon="colorize"
+                    @click="addMovieFolder"
+                  />
                 </q-item-section>
               </q-item>
             </q-list>
@@ -152,7 +150,7 @@
         </q-card-section>
 
         <q-card-actions align="right" class="bg-white text-teal">
-          <q-btn flat label="OK" v-close-popup />
+          <q-btn flat :label="$t('common.ok')" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>

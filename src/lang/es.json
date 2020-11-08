@@ -38,7 +38,10 @@
     "export_btn": "Exportar base de datos",
     "import_btn": "Importar base de datos",
     "export_success": "Base de datos exportada con éxito",
-    "import_success": "Base de datos importada con éxito"
+    "import_success": "Base de datos importada con éxito",
+    "movie_folders": "Carpetas de películas",
+    "add_movie_folder": "Añadir carpeta",
+    "configure_movie_folders": "Configurar carpetas de películas"
   },
   "menu_drawer": {
     "add_movie": "Añadir Película",
@@ -53,7 +56,8 @@
     "open_location": "Abrir ubicación",
     "save_btn": "Guardar",
     "delete_dialog": "¿Estás seguro de que quieres eliminar '{title}'?",
-    "update_successful": "Película actualizada correctamente"
+    "update_successful": "Película actualizada correctamente",
+    "error_movie_file_path": "Hay un problema con la ruta del archivo de la película, por favor revisa tus carpetas de películas"
   },
   "movie_form": {
     "title": "Titulo",
