@@ -83,8 +83,8 @@
 import Movie from "@/interfaces/movie.interface";
 import MovieForm from "@/components/MovieForm";
 import ConfirmDialog from "@/components/ConfirmDialog";
-import open from "open";
 import { movieDatabase } from "@/database";
+import { openByPath, checkPathIsCorrect } from "@/movieFilePath.service";
 
 export default {
   name: "MovieEditor",
@@ -111,13 +111,16 @@ export default {
       this.$emit("close");
     },
     playMovie() {
-      open(this.updatedMovie.filePath);
+      const error = openByPath(this.updatedMovie.filePath);
+      if (error) this.showInfoDialog("NO MOLA");
     },
     openMovieFolder() {
       const filePathArray = this.updatedMovie.filePath.split(/[\\/]+/);
       filePathArray.pop();
       const folderPath = filePathArray.join("/");
-      open(folderPath);
+
+      const error = openByPath(folderPath);
+      if (error) this.showInfoDialog("NO MOLA");
     },
     removeMovie() {
       movieDatabase
@@ -133,6 +136,14 @@ export default {
 
       if (movieExist) {
         this.showInfoDialog(this.$t("common.error_movieAlreadyExists"));
+        return;
+      }
+
+      const newPath = checkPathIsCorrect(this.updatedMovie.filePath);
+      this.updatedMovie.filePath = newPath;
+
+      if (!newPath) {
+        console.log("FILE NOT COOL");
         return;
       }
 

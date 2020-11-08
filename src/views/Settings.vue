@@ -63,6 +63,16 @@
         </q-item-section>
       </q-item>
 
+      <q-item>
+        <q-item-section>
+          <q-btn
+            label="movie folders"
+            color="primary"
+            @click="configurateFolders = true"
+          ></q-btn>
+        </q-item-section>
+      </q-item>
+
       <q-separator spaced inset />
 
       <q-item>
@@ -92,6 +102,60 @@
         </q-card>
       </q-dialog>
     </q-list>
+
+    <q-dialog v-model="configurateFolders" full-width persistent>
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Full Width</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <div class="q-pa-md">
+            <q-list bordered separator>
+              <template v-for="folder in movieFolders">
+                <q-item clickable v-ripple v-bind:key="folder">
+                  <q-item-section>
+                    <q-item-label>{{ folder }}</q-item-label>
+                  </q-item-section>
+
+                  <q-item-section side>
+                    <q-btn-group>
+                      <q-btn color="primary" icon="edit" />
+                      <q-btn
+                        color="negative"
+                        icon="delete"
+                        @click="removeMovieFolder(folder)"
+                      />
+                    </q-btn-group>
+                  </q-item-section>
+                </q-item>
+              </template>
+
+              <q-item clickable v-ripple>
+                <q-item-section>
+                  <q-item-label>Item with caption</q-item-label>
+                </q-item-section>
+
+                <q-item-section side>
+                  <q-btn-group>
+                    <q-btn
+                      color="primary"
+                      icon="colorize"
+                      @click="addMovieFolder"
+                    />
+                    <q-btn color="negative" icon="delete" />
+                  </q-btn-group>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </div>
+        </q-card-section>
+
+        <q-card-actions align="right" class="bg-white text-teal">
+          <q-btn flat label="OK" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -125,12 +189,15 @@ export default {
       confirmDialogOpen: false,
       infoDialogOpen: false,
       infoDialogContent: "",
+      configurateFolders: false,
+      movieFolders: [],
     };
   },
   mounted() {
     this.loadLanguages();
     this.loadThemes();
     this.loadParsers();
+    this.loadMovieFolders();
   },
   methods: {
     loadLanguages() {
@@ -186,6 +253,36 @@ export default {
     changeParser(parser) {
       changeParser(parser);
       settings.set("parser", parser);
+    },
+    loadMovieFolders() {
+      this.movieFolders = settings.get("directories").movies;
+    },
+    addMovieFolder() {
+      dialog
+        .showOpenDialog({
+          properties: ["openDirectory"],
+        })
+        .then(({ canceled, filePaths }) => {
+          if (canceled) {
+            return;
+          }
+
+          const directories = settings.get("directories");
+          directories.movies.push(filePaths[0]);
+          settings.set("directories", directories);
+          this.loadMovieFolders();
+        });
+    },
+    removeMovieFolder(movieFolder) {
+      const directories = settings.get("directories");
+      const movieFolders = directories.movies;
+      const newMovieFolders = movieFolders.filter(
+        (folder) => folder != movieFolder
+      );
+
+      directories.movies = newMovieFolders;
+      settings.set("directories", directories);
+      this.loadMovieFolders();
     },
     cleanDatabase() {
       movieDatabase.cleanDatabase().then(() => {
