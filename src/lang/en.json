@@ -38,7 +38,10 @@
     "export_btn": "Export data base",
     "import_btn": "Import data base",
     "export_success": "Database exported successfully",
-    "import_success": "Database imported successfully"
+    "import_success": "Database imported successfully",
+    "movie_folders": "Movie Folders",
+    "add_movie_folder": "Add folder",
+    "configure_movie_folders": "Configure movie folders"
   },
   "menu_drawer": {
     "add_movie": "Add Movie",
@@ -53,7 +56,8 @@
     "open_location": "Open movie location",
     "save_btn": "Save",
     "delete_dialog": "Are you sure you wanna delete '{title}'?",
-    "update_successful": "Movie updated successfully"
+    "update_successful": "Movie updated successfully",
+    "error_movie_file_path": "There is an error with the movie file path, please check your movie folders"
   },
   "movie_form": {
     "title": "Title",

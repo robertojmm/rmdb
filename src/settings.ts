@@ -11,6 +11,7 @@ const settings = new Store({
     directories: {
       main: mainDirectory,
       posters: mainDirectory + "/posters",
+      movies: []
     },
     language: "en",
     theme: "default",
