@@ -81,6 +81,7 @@ import BackToTopArrow from "@/components/BackToTopArrow";
 import { settings } from "@/settings";
 import { movieDatabase } from "@/database";
 //import parsersList from "@/enums/parsers.enum";
+import { checkPathIsCorrect } from "@/movieFilePath.service";
 
 import { Parsers, parser } from "@/parsers";
 
@@ -136,6 +137,14 @@ export default {
 
       if (movieExist) {
         this.showInfoDialog(this.$t("common.error_movieAlreadyExists"));
+        return;
+      }
+
+      const newPath = checkPathIsCorrect(this.actualMovie.filePath);
+      this.actualMovie.filePath = newPath;
+
+      if (!newPath) {
+        this.showInfoDialog(this.$t("movie_editor.error_movie_file_path"));
         return;
       }
 
