@@ -6,7 +6,8 @@
     "add": "Añadir",
     "viewed": "Vista",
     "not_viewed": "No vista",
-    "error_movieAlreadyExists": "Error: Ya existe una película con ese título"
+    "error_movieAlreadyExists": "Error: Ya existe una película con ese título",
+    "error_movie_file_path": "Hay un problema con la ruta del archivo de la película, por favor revisa tus carpetas de películas"
   },
   "movie_library": {
     "search": "Buscar en Rmdb",
@@ -56,8 +57,7 @@
     "open_location": "Abrir ubicación",
     "save_btn": "Guardar",
     "delete_dialog": "¿Estás seguro de que quieres eliminar '{title}'?",
-    "update_successful": "Película actualizada correctamente",
-    "error_movie_file_path": "Hay un problema con la ruta del archivo de la película, por favor revisa tus carpetas de películas"
+    "update_successful": "Película actualizada correctamente"
   },
   "movie_form": {
     "title": "Titulo",

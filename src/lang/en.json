@@ -6,7 +6,8 @@
     "add": "Add",
     "viewed": "Viewed",
     "not_viewed": "Not viewed",
-    "error_movieAlreadyExists": "Error: There exists already a movie with that title"
+    "error_movieAlreadyExists": "Error: There exists already a movie with that title",
+    "error_movie_file_path": "There is an error with the movie file path, please check your movie folders"
   },
   "movie_library": {
     "search": "Search in Rmdb",
@@ -56,8 +57,7 @@
     "open_location": "Open movie location",
     "save_btn": "Save",
     "delete_dialog": "Are you sure you wanna delete '{title}'?",
-    "update_successful": "Movie updated successfully",
-    "error_movie_file_path": "There is an error with the movie file path, please check your movie folders"
+    "update_successful": "Movie updated successfully"
   },
   "movie_form": {
     "title": "Title",

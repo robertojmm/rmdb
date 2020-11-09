@@ -113,7 +113,7 @@ export default {
     playMovie() {
       const error = openByPath(this.updatedMovie.filePath);
       if (error)
-        this.showInfoDialog(this.$t("movie_editor.error_movie_file_path"));
+        this.showInfoDialog(this.$t("common.error_movie_file_path"));
     },
     openMovieFolder() {
       const filePathArray = this.updatedMovie.filePath.split(/[\\/]+/);
@@ -122,7 +122,7 @@ export default {
 
       const error = openByPath(folderPath);
       if (error)
-        this.showInfoDialog(this.$t("movie_editor.error_movie_file_path"));
+        this.showInfoDialog(this.$t("common.error_movie_file_path"));
     },
     removeMovie() {
       movieDatabase
@@ -145,7 +145,7 @@ export default {
       this.updatedMovie.filePath = newPath;
 
       if (!newPath) {
-        this.showInfoDialog(this.$t("movie_editor.error_movie_file_path"));
+        this.showInfoDialog(this.$t("common.error_movie_file_path"));
         return;
       }
 

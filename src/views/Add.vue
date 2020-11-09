@@ -144,7 +144,7 @@ export default {
       this.actualMovie.filePath = newPath;
 
       if (!newPath) {
-        this.showInfoDialog(this.$t("movie_editor.error_movie_file_path"));
+        this.showInfoDialog(this.$t("common.error_movie_file_path"));
         return;
       }
 
