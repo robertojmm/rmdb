@@ -22,11 +22,12 @@ export function openByPath(path: string) {
 export function checkPathIsCorrect(moviePath: string) {
   const movieFolders = settings.get("directories").movies;
 
+  if (moviePath.startsWith("/") || moviePath.startsWith("\\")) {
+    return moviePath;
+  }
+
   for (const folder of movieFolders) {
-    const pathIsCorrect =
-      moviePath.startsWith(folder) ||
-      moviePath.startsWith("/") ||
-      moviePath.startsWith("\\");
+    const pathIsCorrect = moviePath.startsWith(folder);
 
     if (pathIsCorrect) {
       const newPath = moviePath.replace(folder, "");
