@@ -2,6 +2,7 @@
   "name": "rmdb",
   "version": "1.0.3",
   "private": true,
+  "author": "robertojmm",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
