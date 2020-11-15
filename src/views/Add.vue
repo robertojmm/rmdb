@@ -141,9 +141,10 @@ export default {
       }
 
       const newPath = checkPathIsCorrect(this.actualMovie.filePath);
+      const pathIsUndefined = this.actualMovie.filePath == undefined;
       this.actualMovie.filePath = newPath;
 
-      if (!newPath) {
+      if (!newPath && !pathIsUndefined) {
         this.showInfoDialog(this.$t("common.error_movie_file_path"));
         return;
       }

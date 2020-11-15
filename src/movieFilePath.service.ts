@@ -20,6 +20,7 @@ export function openByPath(path: string) {
 }
 
 export function checkPathIsCorrect(moviePath: string) {
+  moviePath = moviePath ?? "";
   const movieFolders = settings.get("directories").movies;
 
   if (moviePath.startsWith("/") || moviePath.startsWith("\\")) {
