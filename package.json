@@ -51,7 +51,7 @@
     "electron": "^7.2.4",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "^8.0.0",
     "typescript": "~3.8.3",
     "vue-cli-plugin-electron-builder": "~1.4.6",
